@@ -4,6 +4,7 @@ using Nicopolis_Ad_Istrum.Data;
 using Nicopolis_Ad_Istrum.Interfaces;
 using Nicopolis_Ad_Istrum.Models.Helpers;
 using Nicopolis_Ad_Istrum.Models.Identity;
+using Nicopolis_Ad_Istrum.Models.ViewModels;
 
 namespace Nicopolis_Ad_Istrum.Services
 {
@@ -25,7 +26,6 @@ namespace Nicopolis_Ad_Istrum.Services
         {
             var query = dbContext.ApplicationUsers.AsQueryable();
 
-            // Apply sorting based on the selected field and order
             switch (sortBy.ToLower())
             {
                 case "firstname":
@@ -48,11 +48,63 @@ namespace Nicopolis_Ad_Istrum.Services
 
             return new PaginatedList<ApplicationUser>(users, totalCount, pageIndex, pageSize);
         }
-
-
         public async Task<int> GetTotalUsersCountAsync()
         {
             return await dbContext.ApplicationUsers.CountAsync();
+        }
+        public async Task<EditUserViewModel> GetUserViewModelAsync(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("User cannot be null");
+            }
+
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            var allRoles = await roleManager.Roles.Select(r => r.Name).ToListAsync();
+
+            var model = new EditUserViewModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Degree = user.Degree,
+                Specialty = user.Specialty,
+                City = user.City,
+                Address = user.Adress,
+                SelectedRoles = userRoles.ToList(),
+                AllRoles = allRoles
+            };
+
+            return model;
+        }
+        public async Task UpdateUserByIdAsync(EditUserViewModel viewModel)
+        {
+            var user = await userManager.FindByIdAsync(viewModel.Id);
+
+            if (user == null)
+            {
+                return;
+            }
+
+            user.FirstName = viewModel.FirstName;
+            user.LastName = viewModel.LastName;
+            user.Email = viewModel.Email;
+            user.Degree = viewModel.Degree;
+            user.Specialty = viewModel.Specialty;
+            user.City = viewModel.City;
+            user.Adress = viewModel.Address;
+
+            var currentRoles = await userManager.GetRolesAsync(user);
+
+            await userManager.RemoveFromRolesAsync(user, currentRoles);
+
+            await userManager.AddToRolesAsync(user, viewModel.SelectedRoles);
+
+            await userManager.UpdateAsync(user);
         }
     }
 }

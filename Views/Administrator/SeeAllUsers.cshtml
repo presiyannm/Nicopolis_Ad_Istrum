@@ -1,7 +1,7 @@
 ﻿@model PaginatedList<ApplicationUser>
 
 @{
-    ViewData["Title"] = "All Users";
+    ViewData["Title"] = "Всички потребители";
 }
 
 <h1>@ViewData["Title"]</h1>
@@ -9,30 +9,22 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>
+            <th class="text-nowrap">
                 <a href="@Url.Action("SeeAllUsers", new { page = 1, pageSize = Model.PageSize, sortBy = "FirstName", ascending = ViewData["SortOrderFirstName"] as bool? ?? true })">
-                    First Name
-                    @if (ViewData["SortBy"]?.ToString() == "FirstName")
-                    {
-                        <span>@(ViewData["SortOrderFirstName"] as bool? == true ? "↑" : "↓")</span>
-                    }
+                    Първо име
                 </a>
             </th>
             <th>
                 <a href="@Url.Action("SeeAllUsers", new { page = 1, pageSize = Model.PageSize, sortBy = "LastName", ascending = ViewData["SortOrderLastName"] as bool? ?? true })">
-                    Last Name
-                    @if (ViewData["SortBy"]?.ToString() == "LastName")
-                    {
-                        <span>@(ViewData["SortOrderLastName"] as bool? == true ? "↑" : "↓")</span>
-                    }
+                    Фамилия
                 </a>
             </th>
-            <th>Email</th>
-            <th>Degree</th>
-            <th>Specialty</th>
-            <th>City</th>
-            <th>Address</th>
-            <th>Actions</th>
+            <th>Имейл</th>
+            <th>Степен на образование</th>
+            <th>Специалност</th>
+            <th>Град</th>
+            <th>Адрес</th>
+            <th>Действия</th>
         </tr>
     </thead>
     <tbody>
@@ -47,8 +39,8 @@
                 <td>@user.City</td>
                 <td>@user.Adress</td>
                 <td>
-                    <a href="@Url.Action("Edit", "Administrator", new { id = user.Id })" class="btn btn-warning btn-sm">Edit</a>
-                    <a href="@Url.Action("Delete", "Administrator", new { id = user.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="@Url.Action("EditUserById", "Administrator", new { userId = user.Id })" class="btn btn-warning btn-sm mb-3">Промени</a>
+                    <a href="@Url.Action("Delete", "Administrator", new { id = user.Id })" class="btn btn-danger btn-sm">Изтрий</a>
                 </td>
             </tr>
         }
@@ -58,15 +50,15 @@
 <div>
     @if (Model.HasPreviousPage)
     {
-        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"] })" class="btn btn-primary btn-sm">Previous</a>
+        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"] })" class="btn btn-primary btn-sm">Назад</a>
     }
 
     @if (Model.HasNextPage)
     {
-        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"] })" class="btn btn-primary btn-sm">Next</a>
+        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"] })" class="btn btn-primary btn-sm">Напред</a>
     }
 </div>
 
 <div>
-    <p>Page @Model.CurrentPage of @Model.TotalPages</p>
+    <p>Страница @Model.CurrentPage от @Model.TotalPages</p>
 </div>

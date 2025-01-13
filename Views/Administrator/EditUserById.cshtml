@@ -1,0 +1,50 @@
+﻿@model EditUserViewModel
+
+@{
+    ViewData["Title"] = "Промени информация на потребителя";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="EditUserById" method="post">
+    <div class="form-group">
+        <label for="FirstName">Първо име</label>
+        <input asp-for="FirstName" type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName" required />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Фамилия</label>
+        <input asp-for="LastName" type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName" required />
+    </div>
+    <div class="form-group">
+        <label for="Email">Имейл</label>
+        <input asp-for="Email" type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+    <div class="form-group">
+        <label for="Degree">Степен на образование</label>
+        <input asp-for="Degree" type="text" class="form-control" id="Degree" name="Degree" value="@Model.Degree" />
+    </div>
+    <div class="form-group">
+        <label for="Specialty">Специалност</label>
+        <input asp-for="Specialty" type="text" class="form-control" id="Specialty" name="Specialty" value="@Model.Specialty" />
+    </div>
+    <div class="form-group">
+        <label for="City">Град</label>
+        <input asp-for="City" type="text" class="form-control" id="City" name="City" value="@Model.City" />
+    </div>
+    <div class="form-group">
+        <label for="Address">Адрес</label>
+        <input asp-for="Address" type="text" class="form-control" id="Address" name="Address" value="@Model.Address" />
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="SelectedRoles" class="control-label">Позиция</label>
+        <select asp-for="SelectedRoles" class="form-control" asp-items="@(new SelectList(Model.AllRoles))" multiple="multiple">
+            <option value="" disabled selected>-- Избери позиция --</option>
+        </select>
+        <span asp-validation-for="SelectedRoles" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+    <button type="submit" class="btn btn-primary">Запази промяната</button>
+</form>

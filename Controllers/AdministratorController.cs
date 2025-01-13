@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Nicopolis_Ad_Istrum.Interfaces;
 using Nicopolis_Ad_Istrum.Models.Helpers;
 using Nicopolis_Ad_Istrum.Models.Identity;
+using Nicopolis_Ad_Istrum.Models.ViewModels;
 using Nicopolis_Ad_Istrum.Services;
 
 namespace Nicopolis_Ad_Istrum.Controllers
@@ -31,6 +32,32 @@ namespace Nicopolis_Ad_Istrum.Controllers
             ViewData["SortOrderLastName"] = sortBy == "LastName" ? ascending : (bool?)null;
 
             var model = new PaginatedList<ApplicationUser>(users, totalUsers, page, pageSize);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditUserById(string userId)
+        {
+            var model = await adminService.GetUserViewModelAsync(userId);
+
+            if (model == null)
+            {
+                return NotFound();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUserById(EditUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                await adminService.UpdateUserByIdAsync(model);
+
+                return RedirectToAction("SeeAllUsers");
+            }
 
             return View(model);
         }
