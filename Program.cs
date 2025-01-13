@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Nicopolis_Ad_Istrum.Data;
 using Nicopolis_Ad_Istrum.Data.SeedDb;
+using Nicopolis_Ad_Istrum.Interfaces;
 using Nicopolis_Ad_Istrum.Models.Identity;
+using Nicopolis_Ad_Istrum.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +18,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 var app = builder.Build();
 
