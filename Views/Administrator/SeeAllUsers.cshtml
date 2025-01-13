@@ -24,6 +24,7 @@
             <th>Специалност</th>
             <th>Град</th>
             <th>Адрес</th>
+            <th>Позиция</th>
             <th>Действия</th>
         </tr>
     </thead>
@@ -38,9 +39,10 @@
                 <td>@user.Specialty</td>
                 <td>@user.City</td>
                 <td>@user.Adress</td>
+                <td>@user.Position</td>
                 <td>
                     <a href="@Url.Action("EditUserById", "Administrator", new { userId = user.Id })" class="btn btn-warning btn-sm mb-3">Промени</a>
-                    <a href="@Url.Action("Delete", "Administrator", new { id = user.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                    <a href="@Url.Action("DeleteUserById", "Administrator", new { userId = user.Id })" class="btn btn-danger btn-sm">Изтрий</a>
                 </td>
             </tr>
         }

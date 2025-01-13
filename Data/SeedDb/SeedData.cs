@@ -7,7 +7,7 @@ namespace Nicopolis_Ad_Istrum.Data.SeedDb
     {
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            string[] roleNames = { "Administrator", "Science Associate", "Employee" };
+            string[] roleNames = { "Administrator", "Science Associate", "Employee", "User" };
 
             foreach (var roleName in roleNames)
             {
@@ -24,7 +24,8 @@ namespace Nicopolis_Ad_Istrum.Data.SeedDb
             {
                 ("admin@domain.com", "AdminPassword123!", "Administrator"),
                 ("associate@domain.com", "AssociatePassword123!", "Science Associate"),
-                ("employee@domain.com", "EmployeePassword123!", "Employee")
+                ("employee@domain.com", "EmployeePassword123!", "Employee"),
+                ("user@domain.com", "UserPassword123!", "User")
             };
 
             foreach (var (email, password, role) in users)

@@ -12,6 +12,8 @@ namespace Nicopolis_Ad_Istrum.Models.Identity
         public string City { get; set; } = string.Empty;
         public string Adress { get; set; } = string.Empty;
 
+        public string Position { get; set; } = string.Empty;
+
         public List<Collection> Collections { get; set; }
 
         public List<Exhibit> Exhibits { get; set; }

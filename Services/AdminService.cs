@@ -106,6 +106,21 @@ namespace Nicopolis_Ad_Istrum.Services
 
             await userManager.UpdateAsync(user);
         }
+
+        public async Task DeleteUserByIdAsync(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("user cannot be null");
+            }
+
+            await userManager.DeleteAsync(user);
+
+            await dbContext.SaveChangesAsync();
+        }
+
     }
 }
 

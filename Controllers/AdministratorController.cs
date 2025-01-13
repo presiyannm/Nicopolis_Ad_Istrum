@@ -24,12 +24,24 @@ namespace Nicopolis_Ad_Istrum.Controllers
         {
             var users = await adminService.GetApplicationUsersAsync(page, pageSize, sortBy, ascending);
 
+            foreach (var user in users)
+            {
+                var role = await userManager.GetRolesAsync(user);
+
+                if (role is null)
+                {
+                    throw new Exception("Role cannot be null");
+                }
+
+                user.Position = role[0];
+            }
+
             var totalUsers = await adminService.GetTotalUsersCountAsync();
 
             ViewData["SortBy"] = sortBy;
             ViewData["SortOrder"] = ascending;
-            ViewData["SortOrderFirstName"] = sortBy == "FirstName" ? ascending : (bool?)null;
-            ViewData["SortOrderLastName"] = sortBy == "LastName" ? ascending : (bool?)null;
+            ViewData["SortOrderFirstName"] = sortBy == "FirstName" ? !ascending : true;
+            ViewData["SortOrderLastName"] = sortBy == "LastName" ? !ascending : true;
 
             var model = new PaginatedList<ApplicationUser>(users, totalUsers, page, pageSize);
 
@@ -60,6 +72,19 @@ namespace Nicopolis_Ad_Istrum.Controllers
             }
 
             return View(model);
+        }
+
+        public async Task<IActionResult> DeleteUserById(string userId)
+        {
+            var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == currentUserId)
+            {
+                throw new Exception("You can't delete the account you are using.");
+            }
+            await adminService.DeleteUserByIdAsync(userId);
+
+            return RedirectToAction("SeeAllUsers");
         }
 
     }
