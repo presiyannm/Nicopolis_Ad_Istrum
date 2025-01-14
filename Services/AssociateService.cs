@@ -159,5 +159,59 @@ namespace Nicopolis_Ad_Istrum.Services
 
             return locations;
         }
+
+        public async Task<Collection> GetCollectionByIdAsync(int collectionId)
+        {
+            var collection = await dbContext.Collections.FirstOrDefaultAsync(c => c.Id == collectionId);
+
+            if (collection is null)
+            {
+                throw new Exception("Collection cannot be null");
+            }
+
+            return collection;
+        }
+
+        public async Task UpdateCollection(AddCollectionViewModel viewModel)
+        {
+            var collection = await dbContext.Collections
+                .Include(c => c.ApplicationUser)
+                .Include(c => c.Era)
+                .Include(c => c.Location)
+                .FirstOrDefaultAsync(c => c.Id == viewModel.Id);
+
+            if (collection is null)
+            {
+                throw new Exception("Collection cannot be null");
+            }
+
+            collection.Name = viewModel.Name;
+
+            collection.Description = viewModel.Description;
+
+            var newEra = await dbContext.Eras.FirstOrDefaultAsync(e => e.Id == viewModel.EraId);
+
+            if (newEra is null)
+            {
+                throw new Exception("Era cannot be null");
+            }
+
+            var newLocation = await dbContext.Locations.FirstOrDefaultAsync(l => l.Id == viewModel.LocationId);
+
+            if (newLocation is null)
+            {
+                throw new Exception("Location cannot be null");
+            }
+
+            collection.Location = newLocation;
+
+            collection.Era = newEra;
+
+            collection.EraId = viewModel.EraId;
+
+            collection.LocationId = viewModel.LocationId;
+
+            await dbContext.SaveChangesAsync();
+        }
     }
 }

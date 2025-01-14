@@ -110,5 +110,53 @@ namespace Nicopolis_Ad_Istrum.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditCollectionById(int collectionId)
+        {
+            var collection = await associateService.GetCollectionByIdAsync(collectionId);
+
+            var eras = await associateService.GetAllErasAsync();
+            var locations = await associateService.GetAllLocationsAsync();
+
+            var erasSelectList = eras.Select(e => new SelectListItem
+            {
+                Value = e.Id.ToString(),
+                Text = e.Name
+            }).ToList();
+
+            var locationsSelectList = locations.Select(l => new SelectListItem
+            {
+                Value = l.Id.ToString(),
+                Text = l.Name
+            }).ToList();
+
+            var viewModel = new AddCollectionViewModel
+            {
+                Id = collectionId,
+                AssociateId = collection.ApplicationUserId,
+                Name = collection.Name,
+                Description = collection.Description,
+                EraId = collection.EraId,
+                LocationId = collection.LocationId,
+                Eras = erasSelectList,
+                Locations = locationsSelectList
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCollectionById(AddCollectionViewModel viewModel)
+        {
+            if(ModelState.IsValid)
+            {
+                await associateService.UpdateCollection(viewModel);
+
+                return RedirectToAction("SeeAllCollections", "User");
+            }
+
+            return View(viewModel);
+        }
+
     }
 }

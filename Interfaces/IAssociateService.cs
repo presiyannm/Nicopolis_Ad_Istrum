@@ -17,5 +17,9 @@ namespace Nicopolis_Ad_Istrum.Interfaces
         Task<List<Collection>> GetAllCollectionsAsync();
 
         Task AddExhibitAsync(AddExhibitViewModel viewModel);
+
+        Task<Collection> GetCollectionByIdAsync(int collectionId);
+
+        Task UpdateCollection(AddCollectionViewModel viewModel);
     }
 }

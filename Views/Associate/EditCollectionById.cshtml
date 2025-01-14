@@ -1,0 +1,34 @@
+﻿@model AddCollectionViewModel
+
+<h1>Редактирай колекцията</h1>
+
+<form asp-action="EditCollectionById" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Име:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Описание:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EraId">Избери епоха:</label>
+        <select asp-for="EraId" asp-items="Model.Eras" class="form-control"></select>
+        <span asp-validation-for="EraId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mb-3">
+        <label asp-for="LocationId">Избери локация:</label>
+        <select asp-for="LocationId" asp-items="Model.Locations" class="form-control"></select>
+        <span asp-validation-for="LocationId" class="text-danger"></span>
+    </div>
+
+    <input type="hidden" asp-for="Id" value="@Model.Id">
+    <input type="hidden" asp-for="AssociateId" value="@Model.AssociateId" />
+
+    <button type="submit" class="btn btn-primary">Запази</button>
+</form>
