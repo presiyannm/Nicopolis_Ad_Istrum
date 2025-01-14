@@ -21,6 +21,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<IAdminService, AdminService>();
 
+builder.Services.AddScoped<IAssociateService, AssociateService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

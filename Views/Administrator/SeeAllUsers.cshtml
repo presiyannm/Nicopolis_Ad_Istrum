@@ -6,16 +6,27 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<!-- Search Form -->
+<form method="get" action="@Url.Action("SeeAllUsers", "Administrator")" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="searchTerm" value="@ViewData["SearchTerm"]" class="form-control" placeholder="Търсене по име или фамилия">
+        <input type="hidden" name="pageSize" value="@Model.PageSize">
+        <input type="hidden" name="sortBy" value="@ViewData["SortBy"]">
+        <input type="hidden" name="ascending" value="@ViewData["SortOrder"]">
+        <button type="submit" class="btn btn-primary">Търси</button>
+    </div>
+</form>
+
 <table class="table table-striped">
     <thead>
         <tr>
             <th class="text-nowrap">
-                <a href="@Url.Action("SeeAllUsers", new { page = 1, pageSize = Model.PageSize, sortBy = "FirstName", ascending = ViewData["SortOrderFirstName"] as bool? ?? true })">
+                <a href="@Url.Action("SeeAllUsers", new { page = 1, pageSize = Model.PageSize, sortBy = "FirstName", ascending = ViewData["SortOrderFirstName"] as bool? ?? true, searchTerm = ViewData["SearchTerm"] })">
                     Първо име
                 </a>
             </th>
             <th>
-                <a href="@Url.Action("SeeAllUsers", new { page = 1, pageSize = Model.PageSize, sortBy = "LastName", ascending = ViewData["SortOrderLastName"] as bool? ?? true })">
+                <a href="@Url.Action("SeeAllUsers", new { page = 1, pageSize = Model.PageSize, sortBy = "LastName", ascending = ViewData["SortOrderLastName"] as bool? ?? true, searchTerm = ViewData["SearchTerm"] })">
                     Фамилия
                 </a>
             </th>
@@ -24,7 +35,18 @@
             <th>Специалност</th>
             <th>Град</th>
             <th>Адрес</th>
-            <th>Позиция</th>
+            <th>
+                <a href="@Url.Action("SeeAllUsers", new {
+                        page = 1,
+                        pageSize = Model.PageSize,
+                        sortBy = "Position",
+                        ascending = ViewData["SortBy"]?.ToString() == "Position" ? !(ViewData["SortOrder"] as bool? ?? true) : true,
+                        searchTerm = ViewData["SearchTerm"]
+                        })">
+                    Позиция
+                </a>
+            </th>
+
             <th>Действия</th>
         </tr>
     </thead>
@@ -52,12 +74,12 @@
 <div>
     @if (Model.HasPreviousPage)
     {
-        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"] })" class="btn btn-primary btn-sm">Назад</a>
+        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" class="btn btn-primary btn-sm">Назад</a>
     }
 
     @if (Model.HasNextPage)
     {
-        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"] })" class="btn btn-primary btn-sm">Напред</a>
+        <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" class="btn btn-primary btn-sm">Напред</a>
     }
 </div>
 

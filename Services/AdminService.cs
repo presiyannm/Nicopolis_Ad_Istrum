@@ -10,7 +10,6 @@ namespace Nicopolis_Ad_Istrum.Services
 {
     public class AdminService : IAdminService
     {
-
         private ApplicationDbContext dbContext;
         private UserManager<ApplicationUser> userManager;
         private RoleManager<IdentityRole> roleManager;
@@ -22,32 +21,68 @@ namespace Nicopolis_Ad_Istrum.Services
             this.roleManager = roleManager;
         }
 
-        public async Task<PaginatedList<ApplicationUser>> GetApplicationUsersAsync(int pageIndex, int pageSize, string sortBy, bool ascending)
+        public async Task<PaginatedList<ApplicationUser>> GetApplicationUsersAsync(
+            int pageIndex,
+            int pageSize,
+            string sortBy,
+            bool ascending,
+            string searchTerm)
         {
             var query = dbContext.ApplicationUsers.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                query = query.Where(u => u.FirstName.Contains(searchTerm) || u.LastName.Contains(searchTerm));
+            }
+
+            var usersWithRoles = await query
+                .Select(u => new
+                {
+                    User = u,
+                    Position = userManager.GetRolesAsync(u).Result.FirstOrDefault() ?? "No Role"
+                })
+                .ToListAsync();
 
             switch (sortBy.ToLower())
             {
                 case "firstname":
-                    query = ascending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName);
+                    usersWithRoles = ascending
+                        ? usersWithRoles.OrderBy(u => u.User.FirstName).ToList()
+                        : usersWithRoles.OrderByDescending(u => u.User.FirstName).ToList();
                     break;
                 case "lastname":
-                    query = ascending ? query.OrderBy(u => u.LastName) : query.OrderByDescending(u => u.LastName);
+                    usersWithRoles = ascending
+                        ? usersWithRoles.OrderBy(u => u.User.LastName).ToList()
+                        : usersWithRoles.OrderByDescending(u => u.User.LastName).ToList();
+                    break;
+                case "position":
+                    usersWithRoles = ascending
+                        ? usersWithRoles.OrderBy(u => u.Position).ToList()
+                        : usersWithRoles.OrderByDescending(u => u.Position).ToList();
                     break;
                 default:
-                    query = ascending ? query.OrderBy(u => u.FirstName) : query.OrderByDescending(u => u.FirstName);
+                    usersWithRoles = ascending
+                        ? usersWithRoles.OrderBy(u => u.User.FirstName).ToList()
+                        : usersWithRoles.OrderByDescending(u => u.User.FirstName).ToList();
                     break;
             }
 
-            var totalCount = await query.CountAsync();
+            var users = usersWithRoles
+                .Select(u =>
+                {
+                    u.User.Position = u.Position;
+                    return u.User;
+                })
+                .ToList();
 
-            var users = await query
+            var paginatedUsers = users
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
-                .ToListAsync();
+                .ToList();
 
-            return new PaginatedList<ApplicationUser>(users, totalCount, pageIndex, pageSize);
+            return new PaginatedList<ApplicationUser>(paginatedUsers, users.Count, pageIndex, pageSize);
         }
+
         public async Task<int> GetTotalUsersCountAsync()
         {
             return await dbContext.ApplicationUsers.CountAsync();

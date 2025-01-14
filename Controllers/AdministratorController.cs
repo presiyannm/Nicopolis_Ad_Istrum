@@ -20,20 +20,22 @@ namespace Nicopolis_Ad_Istrum.Controllers
             this.adminService = adminService;
             this.userManager = userManager;
         }
-        public async Task<IActionResult> SeeAllUsers(int page = 1, int pageSize = 2, string sortBy = "FirstName", bool ascending = true)
+        public async Task<IActionResult> SeeAllUsers(string? searchTerm = null, int page = 1, int pageSize = 2, string sortBy = "FirstName", bool ascending = true)
         {
-            var users = await adminService.GetApplicationUsersAsync(page, pageSize, sortBy, ascending);
+            var users = await adminService.GetApplicationUsersAsync(page, pageSize, sortBy, ascending, searchTerm);
 
             foreach (var user in users)
             {
                 var role = await userManager.GetRolesAsync(user);
 
-                if (role is null)
+                if (role == null || role.Count == 0)
                 {
-                    throw new Exception("Role cannot be null");
+                    user.Position = "No Role"; 
                 }
-
-                user.Position = role[0];
+                else
+                {
+                    user.Position = role[0];
+                }
             }
 
             var totalUsers = await adminService.GetTotalUsersCountAsync();
@@ -42,11 +44,14 @@ namespace Nicopolis_Ad_Istrum.Controllers
             ViewData["SortOrder"] = ascending;
             ViewData["SortOrderFirstName"] = sortBy == "FirstName" ? !ascending : true;
             ViewData["SortOrderLastName"] = sortBy == "LastName" ? !ascending : true;
+            ViewData["SortOrderPosition"] = sortBy == "Position" ? !ascending : true;
+            ViewData["SearchTerm"] = searchTerm;
 
             var model = new PaginatedList<ApplicationUser>(users, totalUsers, page, pageSize);
 
             return View(model);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> EditUserById(string userId)
