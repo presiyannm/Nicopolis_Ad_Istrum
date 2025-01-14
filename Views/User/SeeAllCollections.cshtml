@@ -1,0 +1,31 @@
+﻿@model List<Collection>
+
+@{
+    ViewData["Title"] = "All Collections";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Era</th>
+            <th>Location</th>
+            <th>Exhibits Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var collection in Model)
+        {
+            <tr>
+                <td>@collection.Name</td>
+                <td>@collection.Description</td>
+                <td>@collection.Era?.Name</td>
+                <td>@collection.Location?.Name</td> 
+                <td>@collection.Exhibits.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

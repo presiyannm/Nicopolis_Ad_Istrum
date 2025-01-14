@@ -18,6 +18,27 @@ namespace Nicopolis_Ad_Istrum.Services
 
         public async Task AddCollectionAsync(AddCollectionViewModel viewModel)
         {
+            var era = await dbContext.Eras.FirstOrDefaultAsync(e => e.Id == viewModel.EraId);
+
+            if(era is null)
+            {
+                throw new Exception("Era cannot be null");
+            }
+
+            var location = await dbContext.Locations.FirstOrDefaultAsync(l => l.Id ==  viewModel.LocationId);
+
+            if (location is null)
+            {
+                throw new Exception("Location cannot be null");
+            }
+
+            var user = await dbContext.ApplicationUsers.FirstOrDefaultAsync(u => u.Id == viewModel.AssociateId);
+
+            if (user is null)
+            {
+                throw new Exception("User cannot be null");
+            }
+
             var collection = new Collection()
             { 
                 Name = viewModel.Name,
@@ -25,8 +46,11 @@ namespace Nicopolis_Ad_Istrum.Services
                 EraId = viewModel.EraId,
                 LocationId = viewModel.LocationId,
                 ApplicationUserId = viewModel.AssociateId,
+                Era = era,
+                Location = location,
+                ApplicationUser = user,
             };
-
+            
             dbContext.Collections.Add(collection);
 
             await dbContext.SaveChangesAsync();
@@ -52,6 +76,17 @@ namespace Nicopolis_Ad_Istrum.Services
                     await viewModel.PhotoFileName.CopyToAsync(stream);
                 }
 
+                var era = await dbContext.Eras.FirstOrDefaultAsync(e => e.Id == viewModel.EraId);
+                var location = await dbContext.Locations.FirstOrDefaultAsync(e => e.Id == viewModel.LocationId);
+                var acquisition = await dbContext.Acquisitions.FirstOrDefaultAsync(e => e.Id == viewModel.AcquisitionId);
+                var collection = await dbContext.Collections.FirstOrDefaultAsync(e => e.Id == viewModel.CollectionId);
+                var user = await dbContext.ApplicationUsers.FirstOrDefaultAsync(e => e.Id == viewModel.AssociateId);
+
+                if (era is null || location is null || acquisition is null || collection is null || user is null)
+                {
+                    throw new NullReferenceException();
+                }
+
                 var exhibit = new Exhibit()
                 {
                     Name = viewModel.Name,
@@ -62,8 +97,15 @@ namespace Nicopolis_Ad_Istrum.Services
                     ApplicationUserId = viewModel.AssociateId,
                     AcquisitionId = viewModel.AcquisitionId,
                     CollectionId = viewModel.CollectionId,
-                    PhotoFileName = fileName
+                    PhotoFileName = fileName,
+                    Era = era,
+                    Location = location,
+                    Acquisition = acquisition,
+                    Collection = collection,
+                    ApplicationUser = user,
                 };
+
+                collection.Exhibits.Add(exhibit);
 
                 dbContext.Exhibits.Add(exhibit);
 
