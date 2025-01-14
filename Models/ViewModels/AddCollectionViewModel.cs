@@ -6,6 +6,9 @@ namespace Nicopolis_Ad_Istrum.Models.ViewModels
     public class AddCollectionViewModel
     {
         [Required]
+        public string AssociateId { get; set; } = string.Empty;
+
+        [Required]
         public string Name { get; set; } = string.Empty;
 
         [Required]
