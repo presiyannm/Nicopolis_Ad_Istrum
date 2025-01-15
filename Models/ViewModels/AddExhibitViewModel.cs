@@ -19,7 +19,7 @@ namespace Nicopolis_Ad_Istrum.Models.ViewModels
         public IFormFile PhotoFileName { get; set; }
 
         [Required]
-        public string Origin = string.Empty;
+        public string Origin { get; set; } = string.Empty;
 
         [Required]
         public int EraId { get; set; }

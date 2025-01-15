@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nicopolis_Ad_Istrum.Data;
 
@@ -11,9 +12,11 @@ using Nicopolis_Ad_Istrum.Data;
 namespace Nicopolis_Ad_Istrum.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250115092034_Exhibit-test")]
+    partial class Exhibittest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,14 +449,6 @@ namespace Nicopolis_Ad_Istrum.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Origin")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhotoFileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

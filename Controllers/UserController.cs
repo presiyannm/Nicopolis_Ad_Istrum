@@ -60,5 +60,21 @@ namespace Nicopolis_Ad_Istrum.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SeeAllExhibitsByCollections()
+        {
+            var collections = await userService.GetAllCollectionsAsync();
+
+            return View(collections);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeeAllExhibitsByCollectionId(int collectionId)
+        {
+            var exhibits = await userService.GetAllExhibitsByCollectionIdAsync(collectionId);
+
+            return View(exhibits);
+        }
+
     }
 }

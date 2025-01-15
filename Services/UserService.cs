@@ -43,5 +43,18 @@ namespace Nicopolis_Ad_Istrum.Services
                 .Where(u => u.Position == "Science Associate")
                 .ToListAsync();
         }
+
+        public async Task<List<Exhibit>> GetAllExhibitsByCollectionIdAsync(int collectionId)
+        {
+            var exhibits = await dbContext.Exhibits
+                .Include(c => c.Collection)
+                .Include(c => c.ApplicationUser)
+                .Include(c => c.Location)
+                .Include(c => c.Era)
+                .Include(c => c.Acquisition)
+                .Where(e => e.CollectionId == collectionId).ToListAsync();
+
+            return exhibits;
+        }
     }
 }

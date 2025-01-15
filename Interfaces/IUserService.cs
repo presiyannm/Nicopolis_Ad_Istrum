@@ -11,5 +11,6 @@ namespace Nicopolis_Ad_Istrum.Interfaces
         Task<List<Location>> GetLocationsAsync();
         Task<List<Era>> GetErasAsync();
         Task<List<ApplicationUser>> GetAssociatesAsync();
+        Task<List<Exhibit>> GetAllExhibitsByCollectionIdAsync(int collectionId);
     }
 }

@@ -11,9 +11,9 @@ namespace Nicopolis_Ad_Istrum.Models
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
-        public string PhotoFileName = string.Empty;
+        public string PhotoFileName { get; set; } = string.Empty;
 
-        public string Origin = string.Empty;
+        public string Origin { get; set; } = string.Empty;
 
         public int EraId { get; set; }
 

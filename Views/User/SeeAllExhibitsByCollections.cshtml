@@ -1,0 +1,24 @@
+﻿@model List<Collection>
+
+@{
+    ViewData["Title"] = "Колекции с експонати";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="row">
+    @foreach (var collection in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@collection.Name</h5>
+                    <p class="card-text">@collection.Description</p>
+                    <a asp-action="SeeAllExhibitsByCollectionId" asp-route-collectionId="@collection.Id" class="btn btn-primary">
+                        Виж експонатите
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
