@@ -10,7 +10,7 @@ namespace Nicopolis_Ad_Istrum.Controllers
     public class AssociateController : Controller
     {
         private IAssociateService associateService;
-        public AssociateController(IAssociateService associateService)
+        public AssociateController(IAssociateService associateService, IAdminService adminService)
         {
             this.associateService = associateService;
         }
@@ -156,6 +156,48 @@ namespace Nicopolis_Ad_Istrum.Controllers
             }
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditExhibitById(int exhibitId)
+        {
+            var exhibit = await associateService.GetExhibitByIdAsync(exhibitId);
+            if (exhibit == null)
+            {
+                return NotFound();
+            }
+
+            var locations = await associateService.GetAllLocationsAsync();
+            var acquisitions = await associateService.GetAllAcquisitionAsync();
+            var eras = await associateService.GetAllErasAsync();
+            var collections = await associateService.GetAllCollectionsAsync();
+
+            var viewModel = new AddExhibitViewModel
+            {
+                Id = exhibit.Id,
+                AssociateId = exhibit.ApplicationUserId,
+                Name = exhibit.Name,
+                Description = exhibit.Description,
+                Origin = exhibit.Origin,
+                EraId = exhibit.EraId,
+                CollectionId = exhibit.CollectionId,
+                AcquisitionId = exhibit.AcquisitionId,
+                LocationId = exhibit.LocationId,
+                Eras = eras.Select(e => new SelectListItem { Value = e.Id.ToString(), Text = e.Name }).ToList(),
+                Locations = locations.Select(l => new SelectListItem { Value = l.Id.ToString(), Text = l.Name }).ToList(),
+                Collections = collections.Select(c => new SelectListItem { Value = c.Id.ToString(), Text = c.Name }).ToList(),
+                Acquisitions = acquisitions.Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.Name }).ToList()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditExhibitById(AddExhibitViewModel viewModel)
+        {
+            await associateService.UpdateExhibit(viewModel);
+
+            return RedirectToAction("SeeAllExhibitsByCollectionId", "User", new { collectionId = viewModel.CollectionId});
         }
 
     }

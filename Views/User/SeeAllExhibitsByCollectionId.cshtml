@@ -6,32 +6,74 @@
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
-<div class="row">
-    @foreach (var exhibit in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <img src="@Url.Content($"~/images/{exhibit.PhotoFileName}")" class="card-img-top" alt="@exhibit.Name" style="width: 100%; height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">@exhibit.Name</h5>
-                    <p class="card-text">@exhibit.Description</p>
-                    <p><strong>Епоха:</strong> @exhibit.Era.Name</p>
-                    <p><strong>Локация:</strong> @exhibit.Location.Name</p>
-                    <p><strong>Произведен от:</strong> @exhibit.ApplicationUser.FirstName @exhibit.ApplicationUser.LastName</p>
-                    <p><strong>Произведен в:</strong> @exhibit.Origin</p>
-                    <p><strong>Придобит чрез:</strong> @exhibit.Acquisition.Name</p>
+<div class="container">
+    <form method="get">
+        <div class="row">
+            <div class="col-md-4">
+                <label for="CollectionId">Колекция:</label>
+                <select id="CollectionId" name="collectionId" class="form-control" asp-items="ViewBag.Collections">
+                    <option selected disabled value="Избери">Избери</option>
+                </select>
+            </div>
 
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <a href="@Url.Action("EditExhibit", "Exhibit", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
-                        <a href="@Url.Action("DeleteExhibit", "Exhibit", new { exhibitId = exhibit.Id })" class="btn btn-danger btn-sm">Изтрий</a>
-                    }
-                    else if (User.IsInRole("Science Associate"))
-                    {
-                        <a href="@Url.Action("EditExhibit", "Exhibit", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
-                    }
-                </div>
+            <div class="col-md-4">
+                <label for="EraId">Епоха:</label>
+                <select id="EraId" name="eraId" class="form-control" asp-items="ViewBag.Eras">
+                    <option selected disabled value="Избери">Избери</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label for="SortOrder">Сортиране по:</label>
+                <select id="SortOrder" name="sortOrder" class="form-control" asp-items="@(new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Име (възходящо)", Value = "nameAsc" },
+                    new SelectListItem { Text = "Име (низходящо)", Value = "nameDesc" },
+                    new SelectListItem { Text = "Епоха (възходящо)", Value = "eraAsc" },
+                    new SelectListItem { Text = "Епоха (низходящо)", Value = "eraDesc" }
+                }, "Value", "Text", ViewBag.SortOrder))">
+                <option selected disabled value="Избери">Избери</option>
+                </select>
             </div>
         </div>
-    }
+
+        <button type="submit" class="btn btn-primary mt-3">Филтрирай</button>
+    </form>
+
+    <div class="row mt-4">
+        @if (Model.Any())
+        {
+            @foreach (var exhibit in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@Url.Content($"~/images/{exhibit.PhotoFileName}")" class="card-img-top" alt="@exhibit.Name" style="width: 100%; height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@exhibit.Name</h5>
+                            <p class="card-text">@exhibit.Description</p>
+                            <p><strong>Епоха:</strong> @exhibit.Era.Name</p>
+                            <p><strong>Локация:</strong> @exhibit.Location.Name</p>
+                            <p><strong>Произведен от:</strong> @exhibit.ApplicationUser.FirstName @exhibit.ApplicationUser.LastName</p>
+                            <p><strong>Произведен в:</strong> @exhibit.Origin</p>
+                            <p><strong>Придобит чрез:</strong> @exhibit.Acquisition.Name</p>
+
+                            @if (User.IsInRole("Administrator"))
+                            {
+                                <a href="@Url.Action("EditExhibitById", "Associate", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
+                                <a href="@Url.Action("DeleteExhibitById", "Administrator", new { exhibitId = exhibit.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                            }
+                            else if (User.IsInRole("Science Associate"))
+                            {
+                                <a href="@Url.Action("EditExhibitById", "Associate", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Няма експонати за показване.</p>
+        }
+    </div>
 </div>

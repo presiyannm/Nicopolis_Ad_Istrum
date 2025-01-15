@@ -56,5 +56,32 @@ namespace Nicopolis_Ad_Istrum.Services
 
             return exhibits;
         }
+
+        public async Task<List<Exhibit>> GetExhibitsAsync(int collectionId, int? eraId, string sortOrder)
+        {
+            var exhibits = dbContext.Exhibits
+                .Include(e => e.Collection)
+                .Include(e => e.Era)
+                .Include(e => e.Location)
+                .Include(e => e.Acquisition)
+                .Include(e => e.ApplicationUser)
+                .Where(e => e.CollectionId == collectionId);
+
+            if (eraId.HasValue && eraId > 0)
+            {
+                exhibits = exhibits.Where(e => e.EraId == eraId);
+            }
+
+            exhibits = sortOrder switch
+            {
+                "nameAsc" => exhibits.OrderBy(e => e.Name),
+                "nameDesc" => exhibits.OrderByDescending(e => e.Name),
+                "eraAsc" => exhibits.OrderBy(e => e.Era.Name),
+                "eraDesc" => exhibits.OrderByDescending(e => e.Era.Name),
+                _ => exhibits.OrderBy(e => e.Name)
+            };
+
+            return await exhibits.ToListAsync();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Nicopolis_Ad_Istrum.Data;
 using Nicopolis_Ad_Istrum.Interfaces;
 using Nicopolis_Ad_Istrum.Models;
@@ -172,6 +173,24 @@ namespace Nicopolis_Ad_Istrum.Services
             return collection;
         }
 
+        public async Task<Exhibit> GetExhibitByIdAsync(int exhibitId)
+        {
+            var exhibit = await dbContext.Exhibits
+                .Include(c => c.ApplicationUser)
+                .Include(c => c.Era)
+                .Include(c => c.Location)
+                .Include(c => c.Acquisition)
+                .Include(c => c.Collection)
+                .FirstOrDefaultAsync(c => c.Id == exhibitId);
+
+            if (exhibit is null)
+            {
+                throw new Exception("Exhibit cannot be null");
+            }
+
+            return exhibit;
+        }
+
         public async Task UpdateCollection(AddCollectionViewModel viewModel)
         {
             var collection = await dbContext.Collections
@@ -210,6 +229,48 @@ namespace Nicopolis_Ad_Istrum.Services
             collection.EraId = viewModel.EraId;
 
             collection.LocationId = viewModel.LocationId;
+
+            await dbContext.SaveChangesAsync();
+        }
+        public async Task UpdateExhibit(AddExhibitViewModel viewModel)
+        {
+            var exhibit = await GetExhibitByIdAsync(viewModel.Id);
+
+            if (exhibit == null)
+            {
+                throw new ArgumentException($"Exhibit with ID {viewModel.AssociateId} not found.");
+            }
+
+            exhibit.Name = viewModel.Name;
+            exhibit.Description = viewModel.Description;
+            exhibit.Origin = viewModel.Origin;
+            exhibit.EraId = viewModel.EraId;
+            exhibit.CollectionId = viewModel.CollectionId;
+            exhibit.AcquisitionId = viewModel.AcquisitionId;
+            exhibit.LocationId = viewModel.LocationId;
+
+            if (viewModel.PhotoFileName != null)
+            {
+                var uniqueFileName = $"{Guid.NewGuid()}_{viewModel.PhotoFileName.FileName}";
+
+                var uploadsFolder = Path.Combine("wwwroot", "images"); 
+
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await viewModel.PhotoFileName.CopyToAsync(fileStream);
+                }
+
+                exhibit.PhotoFileName = $"{uniqueFileName}";
+            }
+
+            dbContext.Exhibits.Update(exhibit);
 
             await dbContext.SaveChangesAsync();
         }

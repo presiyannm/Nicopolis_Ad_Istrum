@@ -9,9 +9,11 @@ namespace Nicopolis_Ad_Istrum.Controllers
     {
         private IUserService userService;
 
-        public UserController(IUserService userService)
+        private IAssociateService associateService;
+        public UserController(IUserService userService, IAssociateService associateService)
         {
             this.userService = userService;
+            this.associateService = associateService;
         }
 
         [HttpGet]
@@ -69,12 +71,45 @@ namespace Nicopolis_Ad_Istrum.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeeAllExhibitsByCollectionId(int collectionId)
+        public async Task<IActionResult> SeeAllExhibitsByCollectionId(int collectionId, int eraId, string sortOrder)
         {
             var exhibits = await userService.GetAllExhibitsByCollectionIdAsync(collectionId);
 
+            if (eraId != 0)
+            {
+                exhibits = exhibits.Where(e => e.EraId == eraId).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "nameAsc":
+                    exhibits = exhibits.OrderBy(e => e.Name).ToList();
+                    break;
+                case "nameDesc":
+                    exhibits = exhibits.OrderByDescending(e => e.Name).ToList();
+                    break;
+                case "eraAsc":
+                    exhibits = exhibits.OrderBy(e => e.Era.Name).ToList();
+                    break;
+                case "eraDesc":
+                    exhibits = exhibits.OrderByDescending(e => e.Era.Name).ToList();
+                    break;
+                default:
+                    break;
+            }
+
+            var collections = await userService.GetAllCollectionsAsync();
+            var eras = await associateService.GetAllErasAsync();
+
+            ViewBag.SortOrder = sortOrder;
+
+            ViewBag.Collections = new SelectList(collections, "Id", "Name", collectionId);
+            ViewBag.Eras = new SelectList(eras, "Id", "Name", eraId);
+
             return View(exhibits);
         }
+
+
 
     }
 }

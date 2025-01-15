@@ -12,5 +12,6 @@ namespace Nicopolis_Ad_Istrum.Interfaces
         Task UpdateUserByIdAsync(EditUserViewModel viewModel);
         Task DeleteUserByIdAsync(string userId);
         Task DeleteCollectionByIdAsync(int collectionId);
+        Task DeleteExhibitByIdAsync(int exhibitId);
     }
 }
