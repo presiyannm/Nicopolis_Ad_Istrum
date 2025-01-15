@@ -2,6 +2,8 @@
 using Nicopolis_Ad_Istrum.Data;
 using Nicopolis_Ad_Istrum.Interfaces;
 using Nicopolis_Ad_Istrum.Models;
+using Nicopolis_Ad_Istrum.Models.Constants;
+using Nicopolis_Ad_Istrum.Models.Identity;
 
 namespace Nicopolis_Ad_Istrum.Services
 {
@@ -24,6 +26,22 @@ namespace Nicopolis_Ad_Istrum.Services
                 .ToListAsync();
 
             return collections;
+        }
+        public async Task<List<Location>> GetLocationsAsync()
+        {
+            return await dbContext.Locations.ToListAsync();
+        }
+
+        public async Task<List<Era>> GetErasAsync()
+        {
+            return await dbContext.Eras.ToListAsync();
+        }
+
+        public async Task<List<ApplicationUser>> GetAssociatesAsync()
+        {
+            return await dbContext.ApplicationUsers
+                .Where(u => u.Position == "Science Associate")
+                .ToListAsync();
         }
     }
 }

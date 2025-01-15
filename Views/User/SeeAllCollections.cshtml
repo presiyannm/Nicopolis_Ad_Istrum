@@ -1,4 +1,4 @@
-﻿@model List<Collection>
+﻿@model FilteredCollectionsViewModel
 
 @{
     ViewData["Title"] = "Всички колекции";
@@ -6,13 +6,60 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<form method="get">
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <label for="locationFilter" class="form-label">Филтър по локация:</label>
+            <select id="locationFilter" name="LocationId" class="form-select" asp-items="Model.LocationOptions">
+                <option value="">-- Всички --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="eraFilter" class="form-label">Филтър по епоха:</label>
+            <select id="eraFilter" name="EraId" class="form-select" asp-items="Model.EraOptions">
+                <option value="">-- Всички --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="associateFilter" class="form-label">Филтър по научен сътрудник:</label>
+            <select id="associateFilter" name="AssociateId" class="form-select" asp-items="Model.AssociateOptions">
+                <option value="">-- Всички --</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary mt-4">Филтрирай</button>
+        </div>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
-            <th>Име</th>
-            <th>Описание</th>
-            <th>Епоха</th>
-            <th>Локация</th>
+            <th>
+                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Name" ? "Name_Desc" : "Name")">
+                    Име
+                </a>
+            </th>
+            <th>
+                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Description" ? "Description_Desc" : "Description")">
+                    Описание
+                </a>
+            </th>
+            <th>
+                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Era" ? "Era_Desc" : "Era")">
+                    Епоха
+                </a>
+            </th>
+            <th>
+                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Location" ? "Location_Desc" : "Location")">
+                    Локация
+                </a>
+            </th>
+            <th>
+                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Associate" ? "Associate_Desc" : "Associate")">
+                    Име на сътрудника
+                </a>
+            </th>
             <th>Брой на експонати</th>
             @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
             {
@@ -21,13 +68,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var collection in Model)
+        @foreach (var collection in Model.Collections)
         {
             <tr>
                 <td>@collection.Name</td>
                 <td>@collection.Description</td>
                 <td>@collection.Era?.Name</td>
                 <td>@collection.Location?.Name</td>
+                <td>@collection.ApplicationUser?.FirstName</td>
                 <td>@collection.Exhibits.Count</td>
                 @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
                 {
@@ -35,7 +83,7 @@
                         <a href="@Url.Action("EditCollectionById", "Associate", new { collectionId = collection.Id })" class="btn btn-primary btn-sm">Редактирай</a>
                         @if (User.IsInRole("Administrator"))
                         {
-                            <a href="@Url.Action("Delete", "", new { id = collection.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                            <a href="@Url.Action("DeleteCollectionById", "Administrator", new { collectionId = collection.Id })" class="btn btn-danger btn-sm">Изтрий</a>
                         }
                     </td>
                 }

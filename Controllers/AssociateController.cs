@@ -6,7 +6,7 @@ using Nicopolis_Ad_Istrum.Models.ViewModels;
 
 namespace Nicopolis_Ad_Istrum.Controllers
 {
-    [Authorize(Roles = "Science Associate")]
+    [Authorize(Roles = "Science Associate, Administrator")]
     public class AssociateController : Controller
     {
         private IAssociateService associateService;

@@ -132,6 +132,7 @@ namespace Nicopolis_Ad_Istrum.Services
             user.Specialty = viewModel.Specialty;
             user.City = viewModel.City;
             user.Adress = viewModel.Address;
+            user.Position = viewModel.SelectedRoles.First();
 
             var currentRoles = await userManager.GetRolesAsync(user);
 
@@ -156,6 +157,19 @@ namespace Nicopolis_Ad_Istrum.Services
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteCollectionByIdAsync(int collectionId)
+        {
+            var collection = await dbContext.Collections.FirstOrDefaultAsync(c => c.Id == collectionId);
+
+            if (collection is null)
+            {
+                throw new Exception("Collection cannot be null");
+            }
+
+            dbContext.Collections.Remove(collection);
+
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
 

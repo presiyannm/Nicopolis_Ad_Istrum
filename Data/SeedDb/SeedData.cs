@@ -37,7 +37,8 @@ namespace Nicopolis_Ad_Istrum.Data.SeedDb
                     user = new ApplicationUser
                     {
                         UserName = email,
-                        Email = email
+                        Email = email,
+                        Position = role
                     };
 
                     var result = await userManager.CreateAsync(user, password);

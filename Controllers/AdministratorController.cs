@@ -92,5 +92,12 @@ namespace Nicopolis_Ad_Istrum.Controllers
             return RedirectToAction("SeeAllUsers");
         }
 
+        public async Task<IActionResult> DeleteCollectionById(int collectionId)
+        {
+            await adminService.DeleteCollectionByIdAsync(collectionId);
+
+            return RedirectToAction("SeeAllCollections", "User");
+        }
+
     }
 }
