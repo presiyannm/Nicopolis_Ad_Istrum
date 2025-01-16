@@ -114,5 +114,11 @@ namespace Nicopolis_Ad_Istrum.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult AddChoice()
+        {
+            return View();  
+        }
+
     }
 }

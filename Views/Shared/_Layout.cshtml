@@ -37,9 +37,13 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Administrator" asp-action="SeeAllUsers">Всички потребители</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Administrator" asp-action="AddChoice">Добави</a>
+                            </li>
                         }
 
-                        @if (User.IsInRole("Science Associate") || User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Science Associate"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Associate" asp-action="AddCollection">Добави колекция</a>
@@ -49,7 +53,7 @@
                             </li>
                         }
 
-                        @if (User.IsInRole("Employee") || User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Employee"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="AddEvent">Добави събитие</a>
