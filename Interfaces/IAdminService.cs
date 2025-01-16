@@ -13,5 +13,7 @@ namespace Nicopolis_Ad_Istrum.Interfaces
         Task DeleteUserByIdAsync(string userId);
         Task DeleteCollectionByIdAsync(int collectionId);
         Task DeleteExhibitByIdAsync(int exhibitId);
+
+        Task DeleteEventById(int eventId);
     }
 }

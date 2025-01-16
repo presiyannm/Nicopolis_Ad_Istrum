@@ -83,5 +83,12 @@ namespace Nicopolis_Ad_Istrum.Services
 
             return await exhibits.ToListAsync();
         }
+
+        public Task<List<Event>> GetAllEventsAsync()
+        {
+            var events = dbContext.Events.Include(e => e.ApplicationUser).ToListAsync();
+
+            return events;
+        }
     }
 }

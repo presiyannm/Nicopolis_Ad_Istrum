@@ -184,6 +184,20 @@ namespace Nicopolis_Ad_Istrum.Services
 
             await dbContext.SaveChangesAsync();
         }
+
+        public async Task DeleteEventById(int eventId)
+        {
+            var currentEvent = await dbContext.Events.FirstOrDefaultAsync(e => e.Id == eventId);
+
+            if (currentEvent is null)
+            {
+                throw new Exception("Event cannot be null");
+            }
+
+            dbContext.Events.Remove(currentEvent);
+
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
 

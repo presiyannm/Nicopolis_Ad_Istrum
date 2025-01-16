@@ -1,10 +1,9 @@
-﻿using Nicopolis_Ad_Istrum.Models.Identity;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Nicopolis_Ad_Istrum.Models
+namespace Nicopolis_Ad_Istrum.Models.ViewModels
 {
-    public class Event
+    public class AddEventViewModel
     {
         public int Id { get; set; }
 
@@ -21,7 +20,5 @@ namespace Nicopolis_Ad_Istrum.Models
         [Required]
         public string ApplicationUserId { get; set; } = string.Empty;
 
-        [ForeignKey(nameof(ApplicationUserId))]
-        public ApplicationUser ApplicationUser { get; set; } = null!;
     }
 }

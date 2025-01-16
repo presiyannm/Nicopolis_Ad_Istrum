@@ -1,0 +1,42 @@
+﻿@model ICollection<Event>
+@{
+    ViewData["Title"] = "All Events";
+}
+
+<h2>Всички събития</h2>
+
+<div class="row">
+    @foreach (var ev in Model)
+    {
+        var isPastEvent = ev.Date < DateOnly.FromDateTime(DateTime.Now);
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">@ev.Name</h5>
+                    <p class="card-text">@ev.Description</p>
+
+                    <p>
+                        <strong>Дата:</strong>
+                        <span class="badge
+                                    @(isPastEvent ? "bg-danger" : "bg-success")">
+                            @ev.Date.ToString("dd MMM yyyy")
+                        </span>
+                    </p>
+
+                    <p><strong>Автор:</strong> @ev.ApplicationUser.FirstName @ev.ApplicationUser.LastName</p>
+
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                        <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                    }
+                    else if (User.IsInRole("Science Associate"))
+                    {
+                        <a href="@Url.Action("EditEventById", "Employee", new { id = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

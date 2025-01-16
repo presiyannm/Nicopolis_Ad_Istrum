@@ -106,5 +106,13 @@ namespace Nicopolis_Ad_Istrum.Controllers
             return RedirectToAction("SeeAllExhibitsByCollections", "User");
         }
 
+        public async Task<IActionResult> DeleteEventById(int eventId)
+        {
+            await adminService.DeleteEventById(eventId);
+
+            return RedirectToAction("SeeAllEvents", "User");
+
+        }
+
     }
 }

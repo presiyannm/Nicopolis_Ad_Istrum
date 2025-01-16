@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Nicopolis_Ad_Istrum.Interfaces;
 using Nicopolis_Ad_Istrum.Models.ViewModels;
 
 namespace Nicopolis_Ad_Istrum.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private IUserService userService;
@@ -107,6 +109,14 @@ namespace Nicopolis_Ad_Istrum.Controllers
             ViewBag.Eras = new SelectList(eras, "Id", "Name", eraId);
 
             return View(exhibits);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeeAllEvents()
+        {
+            var events = await userService.GetAllEventsAsync();
+
+            return View(events);
         }
 
 
