@@ -112,12 +112,33 @@ namespace Nicopolis_Ad_Istrum.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeeAllEvents()
+        public async Task<IActionResult> SeeAllEvents(string sortBy = "Name", string sortDirection = "asc")
         {
             var events = await userService.GetAllEventsAsync();
 
+            // Sort events based on the query parameters
+            switch (sortBy.ToLower())
+            {
+                case "name":
+                    events = sortDirection.ToLower() == "asc"
+                        ? events.OrderBy(e => e.Name).ToList()
+                        : events.OrderByDescending(e => e.Name).ToList();
+                    break;
+
+                case "date":
+                    events = sortDirection.ToLower() == "asc"
+                        ? events.OrderBy(e => e.Date).ToList()
+                        : events.OrderByDescending(e => e.Date).ToList();
+                    break;
+
+                default:
+                    events = events.OrderBy(e => e.Name).ToList();
+                    break;
+            }
+
             return View(events);
         }
+
 
 
 

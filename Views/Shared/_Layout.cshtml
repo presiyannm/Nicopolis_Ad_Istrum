@@ -19,28 +19,27 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SeeAllCollections">Всички колекции</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SeeAllExhibitsByCollections">Всички експонати</a>
                         </li>
-                        @if(User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SeeAllCollections">Всички колекции</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SeeAllExhibitsByCollections">Всички експонати</a>
-                            </li>
-                        }
-                        @if(User.IsInRole("Administrator"))
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="SeeAllEvents">Всички събития</a>
+                        </li>
+
+                        @if (User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Administrator" asp-action="SeeAllUsers">Всички потребители</a>
                             </li>
                         }
-                        @if (User.IsInRole("Science Associate"))
+
+                        @if (User.IsInRole("Science Associate") || User.IsInRole("Administrator"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Associate" asp-action="AddCollection">Добави колекция</a>
@@ -49,6 +48,14 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Associate" asp-action="AddExhibit">Добави експонат</a>
                             </li>
                         }
+
+                        @if (User.IsInRole("Employee") || User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="AddEvent">Добави събитие</a>
+                            </li>
+                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

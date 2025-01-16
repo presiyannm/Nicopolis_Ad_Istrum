@@ -1,9 +1,49 @@
 ﻿@model ICollection<Event>
+
 @{
     ViewData["Title"] = "All Events";
 }
 
 <h2>Всички събития</h2>
+
+<div class="mb-3">
+    <!-- Sorting Links -->
+    <a href="@Url.Action("SeeAllEvents", new { sortBy = "Name", sortDirection = ViewData["SortDirection"] as string == "asc" ? "desc" : "asc" })" class="btn btn-link">
+        @if (ViewData["SortBy"] as string == "Name")
+        {
+            @if (ViewData["SortDirection"] as string == "asc")
+            {
+                <span>Сортирай по име &#8593;</span>
+            }
+            else
+            {
+                <span>Сортирай по име &#8595;</span>
+            }
+        }
+        else
+        {
+            <span>Сортирай по име</span>
+        }
+    </a>
+
+    <a href="@Url.Action("SeeAllEvents", new { sortBy = "Date", sortDirection = ViewData["SortDirection"] as string == "asc" ? "desc" : "asc" })" class="btn btn-link">
+        @if (ViewData["SortBy"] as string == "Date")
+        {
+            @if (ViewData["SortDirection"] as string == "asc")
+            {
+                <span>Сортирай по дата &#8593;</span>
+            }
+            else
+            {
+                <span>Сортирай по дата &#8595;</span>
+            }
+        }
+        else
+        {
+            <span>Сортирай по дата</span>
+        }
+    </a>
+</div>
 
 <div class="row">
     @foreach (var ev in Model)
