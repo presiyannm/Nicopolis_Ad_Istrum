@@ -1,0 +1,84 @@
+﻿/* Overall Page Styling */
+body {
+    background-color: #f4f4f4; /* Light grey background for the page */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Login Container Styling */
+.login-container {
+    background-color: #fff; /* White background for the login box */
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Form Styling */
+.form-floating .form-control {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+    .form-floating .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+
+/* Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+/* Error Message */
+.text-danger {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Remember Me Checkbox Styling */
+.checkbox label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Centering Login Form on the Page */
+.container {
+    padding-top: 50px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 20px;
+    }
+
+    .form-floating .form-control {
+        font-size: 0.8rem;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+    }
+}

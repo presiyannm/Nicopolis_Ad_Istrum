@@ -1,0 +1,33 @@
+﻿.navb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.nav-links li {
+    display: inline-block;
+    color: #fff;
+}
+
+.nav-links li button {
+    display: inline-block;
+    color: #fff;
+}
+
+.nav-links li:hover {
+    font-weight: 700;
+}
+
+.nav-links li a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.logo {
+    width: 250px;
+    height: 200px;
+}

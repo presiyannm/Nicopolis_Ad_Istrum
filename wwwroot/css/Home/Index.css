@@ -1,0 +1,60 @@
+﻿body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    min-height: calc(100vh - 120px);
+    background: url(../../images/hero/nikopolis-image-17.jpg) no-repeat center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 60px;
+    box-sizing: border-box;
+    color:#fff;
+}
+
+.over {
+    position: relative;
+    z-index: 2;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+    z-index: 0;
+}
+
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+.cta-button {
+    padding: 12px 30px;
+    background-color: #ff6f61;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+    .cta-button:hover {
+        background-color: #e63946;
+    }
+
+
+
+
+

@@ -1,47 +1,70 @@
 ﻿@model RegisterViewModel
 
 @{
-    ViewData["Title"] = "Регистрация";
+    Layout = "_Layout";  // Make sure it uses the layout
 }
 
-<h1>Регистрация</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/Account/Register.css">
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Main content container -->
+    <div class="container vh-100 d-flex justify-content-center align-items-center">
+        <div class="row w-100">
+            <div class="col-md-6 offset-md-3">
+                <div class="register-container">
+                    <div class="register-header text-center">
+                        <h1>Регистрация</h1>
+                        <p class="register-description">Създайте своя профил и станете част от нашата общност.</p>
+                    </div>
 
-<div class="register-container">
-    <form asp-action="Register" method="post" class="register-form">
-        <div class="form-group">
-            <label asp-for="FirstName" class="form-label">Първо Име:</label>
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <form asp-action="Register" method="post" class="register-form">
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="form-label">Първо Име:</label>
+                            <input asp-for="FirstName" class="form-control" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="LastName" class="form-label">Фамилия:</label>
+                            <input asp-for="LastName" class="form-control" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="EmailAddress" class="form-label">Имейл:</label>
+                            <input asp-for="EmailAddress" type="email" class="form-control" />
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password" class="form-label">Парола:</label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label">Повтори паролата:</label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn cta-button w-100">Регистрирай се</button>
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label asp-for="LastName" class="form-label">Фамилия:</label>
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="EmailAddress" class="form-label">Имейл:</label>
-            <input asp-for="EmailAddress" type="email" class="form-control" />
-            <span asp-validation-for="EmailAddress" class="text-danger"></span>
-        </div>
-
-        <div class="form-group">
-            <label asp-for="Password" class="form-label">Парола:</label>
-            <input asp-for="Password" type="password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-
-        <div class="form-group mb-3">
-            <label asp-for="ConfirmPassword" class="form-label">Повтори паролата:</label>
-            <input asp-for="ConfirmPassword" type="password" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Регистрирай се</button>
-    </form>
-</div>
-
-@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <partial name="_ValidationScriptsPartial" />
-}
+</body>
+</html>

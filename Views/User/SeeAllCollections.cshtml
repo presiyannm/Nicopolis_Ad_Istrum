@@ -1,93 +1,122 @@
-﻿@model FilteredCollectionsViewModel
+﻿<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
 
-@{
-    ViewData["Title"] = "Всички колекции";
-}
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="~/css/User/SeeAllCollections.css">
 
-<h1>@ViewData["Title"]</h1>
+</head>
+<body>
 
-<form method="get">
-    <div class="row mb-3">
-        <div class="col-md-3">
-            <label for="locationFilter" class="form-label">Филтър по локация:</label>
-            <select id="locationFilter" name="LocationId" class="form-select" asp-items="Model.LocationOptions">
-                <option value="">-- Всички --</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label for="eraFilter" class="form-label">Филтър по епоха:</label>
-            <select id="eraFilter" name="EraId" class="form-select" asp-items="Model.EraOptions">
-                <option value="">-- Всички --</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label for="associateFilter" class="form-label">Филтър по научен сътрудник:</label>
-            <select id="associateFilter" name="AssociateId" class="form-select" asp-items="Model.AssociateOptions">
-                <option value="">-- Всички --</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <button type="submit" class="btn btn-primary mt-4">Филтрирай</button>
+    <div class="view-container">
+        <div class="mt-10">
+            <div class="row">
+                <form method="get">
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <label for="locationFilter" class="form-label text-muted">Филтър по локация:</label>
+                            <select id="locationFilter" name="LocationId" class="form-select bg-light">
+                                <option value="">-- Всички --</option>
+                                @foreach (var item in Model.LocationOptions)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="eraFilter" class="form-label text-muted">Филтър по епоха:</label>
+                            <select id="eraFilter" name="EraId" class="form-select bg-light">
+                                <option value="">-- Всички --</option>
+                                @foreach (var item in Model.EraOptions)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="associateFilter" class="form-label text-muted">Филтър по научен сътрудник:</label>
+                            <select id="associateFilter" name="AssociateId" class="form-select bg-light">
+                                <option value="">-- Всички --</option>
+                                @foreach (var item in Model.AssociateOptions)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100 mt-2">Филтрирай</button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table table-hover table-bordered table-striped bg-white shadow-sm rounded">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>
+                                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Name" ? "Name_Desc" : "Name")" class="text-dark text-decoration-none">
+                                    Име
+                                </a>
+                            </th>
+                            <th>
+                                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Description" ? "Description_Desc" : "Description")" class="text-dark text-decoration-none">
+                                    Описание
+                                </a>
+                            </th>
+                            <th>
+                                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Era" ? "Era_Desc" : "Era")" class="text-dark text-decoration-none">
+                                    Епоха
+                                </a>
+                            </th>
+                            <th>
+                                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Location" ? "Location_Desc" : "Location")" class="text-dark text-decoration-none">
+                                    Локация
+                                </a>
+                            </th>
+                            <th>
+                                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Associate" ? "Associate_Desc" : "Associate")" class="text-dark text-decoration-none">
+                                    Име на сътрудника
+                                </a>
+                            </th>
+                            <th>Брой на експонати</th>
+                            @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
+                            {
+                                <th>Действия</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var collection in Model.Collections)
+                        {
+                            <tr>
+                                <td>@collection.Name</td>
+                                <td>@collection.Description</td>
+                                <td>@collection.Era?.Name</td>
+                                <td>@collection.Location?.Name</td>
+                                <td>@collection.ApplicationUser?.FirstName</td>
+                                <td>@collection.Exhibits.Count</td>
+                                @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
+                                {
+                                    <td>
+                                        <a href="@Url.Action("EditCollectionById", "Associate", new { collectionId = collection.Id })" class="btn btn-warning btn-sm me-2">Редактирай</a>
+                                        @if (User.IsInRole("Administrator"))
+                                        {
+                                            <a href="@Url.Action("DeleteCollectionById", "Administrator", new { collectionId = collection.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                                        }
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</form>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Name" ? "Name_Desc" : "Name")">
-                    Име
-                </a>
-            </th>
-            <th>
-                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Description" ? "Description_Desc" : "Description")">
-                    Описание
-                </a>
-            </th>
-            <th>
-                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Era" ? "Era_Desc" : "Era")">
-                    Епоха
-                </a>
-            </th>
-            <th>
-                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Location" ? "Location_Desc" : "Location")">
-                    Локация
-                </a>
-            </th>
-            <th>
-                <a asp-action="SeeAllCollections" asp-route-sortOrder="@(Model.SortOrder == "Associate" ? "Associate_Desc" : "Associate")">
-                    Име на сътрудника
-                </a>
-            </th>
-            <th>Брой на експонати</th>
-            @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
-            {
-                <th>Действия</th>
-            }
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var collection in Model.Collections)
-        {
-            <tr>
-                <td>@collection.Name</td>
-                <td>@collection.Description</td>
-                <td>@collection.Era?.Name</td>
-                <td>@collection.Location?.Name</td>
-                <td>@collection.ApplicationUser?.FirstName</td>
-                <td>@collection.Exhibits.Count</td>
-                @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
-                {
-                    <td>
-                        <a href="@Url.Action("EditCollectionById", "Associate", new { collectionId = collection.Id })" class="btn btn-primary btn-sm">Редактирай</a>
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <a href="@Url.Action("DeleteCollectionById", "Administrator", new { collectionId = collection.Id })" class="btn btn-danger btn-sm">Изтрий</a>
-                        }
-                    </td>
-                }
-            </tr>
-        }
-    </tbody>
-</table>
+</body>
+</html>

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Nicopolis_Ad_Istrum.Data;
 using Nicopolis_Ad_Istrum.Models.Identity;
 using Nicopolis_Ad_Istrum.Models.ViewModels;
@@ -71,6 +73,14 @@ namespace Nicopolis_Ad_Istrum.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

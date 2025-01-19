@@ -1,0 +1,58 @@
+﻿body {
+    background: url('/images/Collections/nikopolis-image-18.jpg') no-repeat center center;
+    background-size: cover; /* Ensures the background covers the whole body */
+    height: 100vh; /* Ensures the background takes the full viewport height */
+    margin: 0; /* Removes default margin to prevent any unwanted space */
+}
+
+body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+        z-index: 0;
+
+}
+
+.view-container {
+    margin-top: 150px;
+    background-color: lightgray;
+    padding: 50px;
+    border-radius: 15px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 5px 5px 20px 5px rgba(0, 0, 0, 0.3);
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table a {
+    color: #495057;
+}
+
+    .table a:hover {
+        color: #007bff;
+    }
+
+.btn-primary, .btn-warning, .btn-danger {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.form-select {
+    border-color: #ced4da;
+    background-color: #e9ecef;
+}
+
+.form-label {
+    font-size: 14px;
+}
