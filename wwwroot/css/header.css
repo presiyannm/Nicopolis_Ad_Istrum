@@ -4,9 +4,9 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    font-size: 18px;
-    font-weight: 500;
+    font-weight:500;
 }
+
 
 .nav-links li {
     display: inline-block;
@@ -30,4 +30,9 @@
 .logo {
     width: 250px;
     height: 200px;
+}
+
+.logo-admin{
+    width:200px;
+    height:200px;
 }

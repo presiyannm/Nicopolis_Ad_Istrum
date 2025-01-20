@@ -1,0 +1,157 @@
+﻿/* General Body Styling */
+body {
+    background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
+    background-size: cover; /* Ensures the background covers the whole body */
+    height: auto; /* Allow height to grow beyond the viewport */
+    min-height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+    margin: 0; /* Removes default margin */
+    position: relative; /* So we can position the overlay correctly */
+}
+
+    /* Overlay on background image */
+    body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+        z-index: 0;
+    }
+
+/* Container on top of background */
+.view-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh; /* Ensures container takes at least full height */
+}
+
+/* Card Hover Effect */
+.card {
+    transition: transform 0.2s ease-in-out;
+    position: relative; /* Ensures the card is positioned correctly inside the container */
+    z-index: 2; /* Keep cards on top of the overlay */
+}
+
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+/* Button Styling */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+/* Empty State Styling */
+.empty-state {
+    padding: 50px 20px;
+    background-color: #f1f1f1; /* Light gray background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .empty-state h3 {
+        color: #333;
+        font-size: 1.5rem;
+    }
+
+    .empty-state p {
+        color: #666;
+        font-size: 1rem;
+    }
+
+    .empty-state .btn-outline-primary {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+        .empty-state .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+/* Card Image Styling */
+.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* Button Styling for Edit and Delete */
+.btn-sm {
+    margin-right: 10px;
+}
+
+/* Form Styling */
+.filter-container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+    /* Ensures the sorting/filter buttons and inputs appear nicely aligned */
+    .filter-container label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    /* Form Select Inputs */
+    .filter-container select {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    /* Filter button */
+    .filter-container .btn {
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px;
+        margin-top: 15px;
+    }
+
+        .filter-container .btn:hover {
+            background-color: #0056b3;
+        }
+
+/* Empty State for Exhibits */
+.empty-state {
+    padding: 50px;
+    background-color: #e9ecef;
+    text-align: center;
+}
+
+    .empty-state h3 {
+        color: #333;
+    }
+
+    .empty-state p {
+        color: #666;
+    }
+
+    /* Adjusting empty state buttons */
+    .empty-state .btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+        .empty-state .btn:hover {
+            background-color: #0056b3;
+        }

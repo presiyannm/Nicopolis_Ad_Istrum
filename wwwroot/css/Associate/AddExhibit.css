@@ -1,0 +1,36 @@
+﻿body {
+    background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
+    background-size: cover;
+    height: auto;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+    body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+.view-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top:100px;
+}
+
+.form-container h1 {
+    font-size: 1.8rem;
+    color: #333;
+}

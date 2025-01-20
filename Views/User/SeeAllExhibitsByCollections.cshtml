@@ -4,21 +4,56 @@
     ViewData["Title"] = "Колекции с експонати";
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="bg">
 
-<div class="row">
-    @foreach (var collection in Model)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@collection.Name</h5>
-                    <p class="card-text">@collection.Description</p>
-                    <a asp-action="SeeAllExhibitsByCollectionId" asp-route-collectionId="@collection.Id" class="btn btn-primary">
-                        Виж експонатите
-                    </a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- External CSS file -->
+    <link rel="stylesheet" href="~/css/User/SeeAllExhibitsByCollections.css">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<body style="background-color: #343a40; color:white;">
+
+    <div class="view-container" style="margin-top:150px;">
+        <h1 class="text-center text-white mb-4">@ViewData["Title"]</h1>
+
+        <div class="container">
+            @if (!Model.Any())
+            {
+                <div class="empty-state text-center">
+                    <h3 class="text-muted mb-4" style="color:white;">В момента няма налични колекции.</h3>
+                    <p class="lead text-muted">Моля, проверете по-късно или се свържете с администратора.</p>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Отидете на началната страница</a>
                 </div>
-            </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var collection in Model)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 shadow-sm border-light" style="background-color: #f8f9fa;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-dark">@collection.Name</h5>
+                                    <p class="card-text text-muted" style="font-size: 0.9rem;">@collection.Description</p>
+                                    <a asp-action="SeeAllExhibitsByCollectionId" asp-route-collectionId="@collection.Id" class="btn btn-primary btn-block">
+                                        Виж експонатите
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
         </div>
-    }
-</div>
+    </div>
+
+</body>
+
+</html>

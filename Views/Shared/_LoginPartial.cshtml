@@ -5,7 +5,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="px-2 py-5 my-1">
-        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Здравей, @User.Identity?.Name!</a>
+        Здравей, @User.Identity?.Name!
     </li>
     <li class="px-2 py-5 my-1">
         <a asp-controller="Account" asp-action="SignOut">Изход</a>

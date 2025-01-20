@@ -1,0 +1,141 @@
+﻿/* Add background photo to the body */
+body {
+    background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
+    background-size: cover; /* Ensures the background covers the entire body */
+    height: auto; /* Allow the body height to grow beyond the viewport */
+    min-height: 100vh; /* Ensures the body takes at least the full height of the viewport */
+    margin: 0;
+    position: relative;
+}
+
+    /* Overlay for better readability on background image */
+    body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Black overlay with 50% opacity */
+        z-index: -1; /* Ensure overlay is below content */
+    }
+
+/* Main container on top of the background */
+.page-events {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh; /* Ensures container takes at least full height */
+}
+
+/* Styling for cards */
+.card {
+    transition: transform 0.2s ease-in-out;
+    position: relative; /* Ensures the card is positioned correctly inside the container */
+    z-index: 2; /* Cards are on top of the overlay */
+}
+
+    /* Hover effect for cards */
+    .card:hover {
+        transform: scale(1.05);
+    }
+
+/* Button Styling for smaller buttons */
+.page-events .btn-primary,
+.page-events .btn-warning,
+.page-events .btn-danger,
+.page-events .btn-outline-primary,
+.page-events .btn-sm {
+    padding: 5px 10px; /* Reduced padding */
+    font-size: 0.8rem; /* Smaller text */
+    border-radius: 5px;
+}
+
+/* Styling for sorting buttons */
+.sorting-buttons {
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the left */
+    gap: 10px; /* Space between buttons */
+    margin-bottom: 20px; /* Space below the sorting buttons */
+}
+
+    .sorting-buttons .btn {
+        padding: 8px 15px; /* Button padding */
+        font-size: 0.9rem; /* Slightly smaller text size */
+        border-radius: 5px; /* Rounded corners */
+        text-transform: uppercase; /* Make text uppercase */
+    }
+
+        /* Styling for buttons when hovered */
+        .sorting-buttons .btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+/* Smaller filter container */
+.filter-container {
+    background-color: #ffffff; /* White background for filter section */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Reduced padding */
+    border-radius: 8px;
+    margin-bottom: 15px; /* Smaller margin */
+    z-index: 3; /* Ensures filter container is above the background and overlay */
+    width: auto; /* Adjust width */
+    max-width: 400px; /* Maximum width to keep it compact */
+    margin-left: auto;
+    margin-right: auto; /* Center the container */
+}
+
+    .filter-container label {
+        font-weight: bold;
+        color: #333;
+        font-size: 0.9rem; /* Smaller label font size */
+    }
+
+    .filter-container select {
+        border-radius: 5px;
+        padding: 5px 10px; /* Smaller padding */
+        border: 1px solid #ccc;
+        width: 100%;
+        margin-top: 5px;
+        font-size: 0.9rem; /* Smaller font size for select options */
+    }
+
+    .filter-container .btn {
+        width: 100%;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px; /* Smaller button padding */
+        font-size: 0.9rem; /* Smaller text */
+        margin-top: 10px;
+        border-radius: 5px;
+    }
+
+        .filter-container .btn:hover {
+            background-color: #0056b3;
+        }
+
+/* Styling for empty state message */
+.empty-state {
+    padding: 50px;
+    background-color: #e9ecef;
+    text-align: center;
+    z-index: 3; /* Ensure empty state is above the background and overlay */
+}
+
+    .empty-state h3 {
+        color: #333;
+    }
+
+    .empty-state p {
+        color: #666;
+    }
+
+    .empty-state .btn {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+    }
+
+        .empty-state .btn:hover {
+            background-color: #0056b3;
+        }

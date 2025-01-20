@@ -16,6 +16,7 @@ namespace Nicopolis_Ad_Istrum.Models.ViewModels
         [Required(ErrorMessage = "Фамилията е задължителна.")]
         public string LastName { get; set; } = string.Empty;
 
+        [Required(ErrorMessage = "Моля, въведете валиден имейл.")]
         [EmailAddress(ErrorMessage = "Моля, въведете валиден имейл.")]
         public string EmailAddress { get; set; } = string.Empty;
     }

@@ -1,82 +1,105 @@
 ﻿@model ICollection<Event>
 
-@{
-    ViewData["Title"] = "All Events";
-}
+<!DOCTYPE html>
+<html lang="bg">
 
-<h2>Всички събития</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/User/SeeAllEvents.css" />
+</head>
 
-<div class="mb-3">
-    <!-- Sorting Links -->
-    <a href="@Url.Action("SeeAllEvents", new { sortBy = "Name", sortDirection = ViewData["SortDirection"] as string == "asc" ? "desc" : "asc" })" class="btn btn-link">
-        @if (ViewData["SortBy"] as string == "Name")
-        {
-            @if (ViewData["SortDirection"] as string == "asc")
-            {
-                <span>Сортирай по име &#8593;</span>
-            }
-            else
-            {
-                <span>Сортирай по име &#8595;</span>
-            }
+<body class="page-events">
+
+    <div class="view-container" style="margin-top:150px;">
+        @{
+            ViewData["Title"] = "Всички събития";
         }
-        else
-        {
-            <span>Сортирай по име</span>
-        }
-    </a>
 
-    <a href="@Url.Action("SeeAllEvents", new { sortBy = "Date", sortDirection = ViewData["SortDirection"] as string == "asc" ? "desc" : "asc" })" class="btn btn-link">
-        @if (ViewData["SortBy"] as string == "Date")
-        {
-            @if (ViewData["SortDirection"] as string == "asc")
-            {
-                <span>Сортирай по дата &#8593;</span>
-            }
-            else
-            {
-                <span>Сортирай по дата &#8595;</span>
-            }
-        }
-        else
-        {
-            <span>Сортирай по дата</span>
-        }
-    </a>
-</div>
+        <h2 class="text-center text-white">@ViewData["Title"]</h2>
 
-<div class="row">
-    @foreach (var ev in Model)
-    {
-        var isPastEvent = ev.Date < DateOnly.FromDateTime(DateTime.Now);
+        <div class="container">
+            <!-- Sorting Buttons placed above the cards -->
+            <div class="sorting-buttons mb-3">
+                <a asp-action="SeeAllEvents"
+                   asp-route-sortBy="Name"
+                   asp-route-sortDirection="@(ViewData["SortDirection"] as string == "asc" ? "desc" : "asc")"
+                   class="btn btn-primary btn-sm">
 
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@ev.Name</h5>
-                    <p class="card-text">@ev.Description</p>
+                        <span>Сортирай по име</span>
+                </a>
 
-                    <p>
-                        <strong>Дата:</strong>
-                        <span class="badge
-                                    @(isPastEvent ? "bg-danger" : "bg-success")">
-                            @ev.Date.ToString("dd MMM yyyy")
-                        </span>
-                    </p>
-
-                    <p><strong>Автор:</strong> @ev.ApplicationUser.FirstName @ev.ApplicationUser.LastName</p>
-
-                    @if (User.IsInRole("Administrator"))
+                <a href="@Url.Action("SeeAllEvents", new { sortBy = "Date", sortDirection = (ViewData["SortDirection"] as string == "asc" ? "desc" : "asc") })" class="btn btn-primary btn-sm">
+                    @if (ViewData["SortBy"] as string == "Date")
                     {
-                        <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
-                        <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                        @if (ViewData["SortDirection"] as string == "asc")
+                        {
+                            <span>Сортирай по дата &#8593;</span>
+                        }
+                        else
+                        {
+                            <span>Сортирай по дата &#8595;</span>
+                        }
                     }
-                    else if (User.IsInRole("Science Associate"))
+                    else
                     {
-                        <a href="@Url.Action("EditEventById", "Employee", new { id = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                        <span>Сортирай по дата</span>
+                    }
+                </a>
+            </div>
+
+            <!-- Empty State if no events are available -->
+            @if (!Model.Any())
+            {
+                <div class="empty-state text-center">
+                    <h3 class="text-muted mb-4">В момента няма налични събития.</h3>
+                    <p class="lead text-muted">Моля, проверете по-късно или се свържете с администратора.</p>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Отидете на началната страница</a>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var ev in Model)
+                    {
+                        var isPastEvent = ev.Date < DateOnly.FromDateTime(DateTime.Now);
+
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">@ev.Name</h5>
+                                    <p class="card-text">@ev.Description</p>
+
+                                    <p>
+                                        <strong>Дата:</strong>
+                                        <span class="badge @(isPastEvent ? "bg-danger" : "bg-success")">
+                                            @ev.Date.ToString("dd MMM yyyy")
+                                        </span>
+                                    </p>
+
+                                    <p><strong>Автор:</strong> @ev.ApplicationUser.FirstName @ev.ApplicationUser.LastName</p>
+
+                                    @if (User.IsInRole("Administrator"))
+                                    {
+                                        <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                                        <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                                    }
+                                    else if (User.IsInRole("Employee"))
+                                    {
+                                        <a href="@Url.Action("EditEventById", "Employee", new { id = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
                     }
                 </div>
-            </div>
+            }
         </div>
-    }
-</div>
+    </div>
+</body>
+
+</html>
