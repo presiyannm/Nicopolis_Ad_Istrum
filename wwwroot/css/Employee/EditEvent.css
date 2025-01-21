@@ -1,5 +1,5 @@
 ﻿body {
-    background: url('/images/Collections/nikopolis-image-18.jpg') no-repeat center center;
+    background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
     background-size: cover;
     height: auto;
     min-height: 100vh;
@@ -23,12 +23,9 @@
     z-index: 1;
     padding: 2rem;
     max-width: 600px;
+    margin: 2rem auto;
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 100px;
-}
-
-html {
-    min-height: 100vh;
 }

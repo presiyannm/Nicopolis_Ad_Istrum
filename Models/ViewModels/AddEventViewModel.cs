@@ -7,13 +7,13 @@ namespace Nicopolis_Ad_Istrum.Models.ViewModels
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         public string Name { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         public string Description { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         [DataType(DataType.Date)]
         public DateOnly Date { get; set; }
 

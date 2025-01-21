@@ -1,0 +1,109 @@
+﻿body {
+    background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
+    background-size: cover;
+    min-height: 100vh;
+    margin: 0;
+    position: relative;
+}
+
+    body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+    }
+
+.view-container {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 100px auto 0;
+    max-width: 1200px;
+}
+
+h1, h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+.view-container .btn {
+    display: inline-block;
+    padding: 8px 16px; /* Smaller padding */
+    font-size: 0.875rem; /* Smaller font size */
+    font-weight: 600;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px; /* Ensure space between buttons */
+    transition: background-color 0.3s ease;
+}
+
+.view-container .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+    .view-container .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.view-container .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+    .view-container .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+.view-container .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+    .view-container .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+/* Add this to ensure buttons align properly */
+.view-container .button-group {
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    gap: 10px; /* Adds space between buttons */
+    flex-wrap: wrap; /* Ensures buttons wrap on smaller screens */
+}
+
+    .view-container .button-group .btn {
+        flex: 0 1 auto; /* Remove flexible growth and let buttons be their natural size */
+        max-width: 180px; /* Limit the width of buttons */
+        margin-bottom: 10px; /* Adds space between rows of buttons */
+    }
+
+/* Optional: Responsive design */
+@media (max-width: 768px) {
+    .view-container .button-group .btn {
+        flex: 1 0 100%; /* Buttons take up full width on smaller screens */
+        max-width: none; /* Allow the button to stretch */
+    }
+}
+
+/* Ensure buttons in the table are aligned vertically when the cell has limited space */
+.table td .btn {
+    display: block; /* Stack buttons vertically */
+    margin-bottom: 5px; /* Add space between the buttons */
+}
+
+/* Ensure buttons in the last column of the table are stacked in small screen sizes */
+@media (max-width: 768px) {
+    .table td .btn {
+        display: block;
+        width: 100%; /* Ensure buttons are full width on smaller screens */
+    }
+}

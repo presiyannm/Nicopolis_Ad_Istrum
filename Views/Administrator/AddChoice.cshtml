@@ -1,15 +1,17 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Add Choice Page">
-    <meta name="author" content="Your Name">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Add Choice Page" />
+    <meta name="author" content="Your Name" />
     <title>Добави</title>
-    <link rel="stylesheet" href="~/css/Administrator/AddChoice.css" />
+
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Administrator/AddChoice.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="choice-container">
+    <div class="view-container" style="margin-top:250px;">
         <h1 class="title">Какво би желал да добавиш?</h1>
         <div class="button-group">
             <a href="/Employee/AddEvent" class="choice-button">Добави събитие</a>
@@ -17,5 +19,12 @@
             <a href="/Associate/AddCollection" class="choice-button">Добави колекция</a>
         </div>
     </div>
+
+    <!-- Scripts section -->
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
 </body>
 </html>

@@ -4,68 +4,84 @@
     ViewData["Title"] = "Редактирай експоната";
 }
 
-<h2>Редактирай експоната</h2>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
 
-<form asp-action="EditExhibitById" method="post" enctype="multipart/form-data">
+    <!-- Add your CSS links here -->
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Associate/EditExhibit.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="view-container" style="margin-top:150px;">
+        <h2>Редактирай експоната</h2>
 
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Име:</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+        <form asp-action="EditExhibitById" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Име:</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание:</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhotoFileName" class="control-label">Избери снимка:</label>
+                <input asp-for="PhotoFileName" type="file" class="form-control" />
+                <span asp-validation-for="PhotoFileName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Origin" class="control-label">Произход:</label>
+                <input asp-for="Origin" class="form-control" />
+                <span asp-validation-for="Origin" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EraId" class="control-label">Избери епоха:</label>
+                <select asp-for="EraId" asp-items="Model.Eras" class="form-control"></select>
+                <span asp-validation-for="EraId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CollectionId" class="control-label">Избери колекция:</label>
+                <select asp-for="CollectionId" asp-items="Model.Collections" class="form-control"></select>
+                <span asp-validation-for="CollectionId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AcquisitionId" class="control-label">Избери начин на придобиване:</label>
+                <select asp-for="AcquisitionId" asp-items="Model.Acquisitions" class="form-control"></select>
+                <span asp-validation-for="AcquisitionId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="LocationId" class="control-label">Избери локация:</label>
+                <select asp-for="LocationId" asp-items="Model.Locations" class="form-control"></select>
+                <span asp-validation-for="LocationId" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Запази</button>
+                <a asp-action="SeeAllExhibitsByCollections" asp-controller="User" class="btn btn-secondary">Откажи</a>
+            </div>
+        </form>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Описание:</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="PhotoFileName" class="control-label">Избери снимка:</label>
-        <input asp-for="PhotoFileName" type="file" class="form-control" />
-        <span asp-validation-for="PhotoFileName" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Origin" class="control-label">Произход:</label>
-        <input asp-for="Origin" class="form-control" />
-        <span asp-validation-for="Origin" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="EraId" class="control-label">Избери епоха:</label>
-        <select asp-for="EraId" asp-items="Model.Eras" class="form-control"></select>
-        <span asp-validation-for="EraId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="CollectionId" class="control-label">Избери колекция:</label>
-        <select asp-for="CollectionId" asp-items="Model.Collections" class="form-control"></select>
-        <span asp-validation-for="CollectionId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="AcquisitionId" class="control-label">Избери начин на придобиване:</label>
-        <select asp-for="AcquisitionId" asp-items="Model.Acquisitions" class="form-control"></select>
-        <span asp-validation-for="AcquisitionId" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="LocationId" class="control-label">Избери локация:</label>
-        <select asp-for="LocationId" asp-items="Model.Locations" class="form-control"></select>
-        <span asp-validation-for="LocationId" class="text-danger"></span>
-    </div>
-
-    <input type="hidden" asp-for="Id" value="@Model.Id" />
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Запази</button>
-        <a asp-action="SeeAllExhibitsByCollections" asp-controller="User" class="btn btn-secondary">Откажи</a>
-    </div>
-</form>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    <!-- Scripts section -->
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
     }
-}
+</body>
+</html>

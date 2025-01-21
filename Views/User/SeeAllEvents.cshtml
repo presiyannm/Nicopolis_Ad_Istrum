@@ -80,7 +80,7 @@
                                     }
                                     else if (User.IsInRole("Employee"))
                                     {
-                                        <a href="@Url.Action("EditEventById", "Employee", new { id = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                                        <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
                                     }
                                 </div>
                             </div>

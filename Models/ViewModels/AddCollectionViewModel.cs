@@ -10,16 +10,16 @@ namespace Nicopolis_Ad_Istrum.Models.ViewModels
         [Required]
         public string AssociateId { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         public string Name { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         public string Description { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         public int EraId {  get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Полето е задължително.")]
         public int LocationId { get; set; }
         public ICollection<SelectListItem> Eras { get; set; } = new List<SelectListItem>();
         public ICollection<SelectListItem> Locations { get; set; } = new List<SelectListItem>();

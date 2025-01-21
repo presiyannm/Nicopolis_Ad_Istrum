@@ -1,28 +1,50 @@
 ﻿@model AddEventViewModel
 
-<h2>Редактиране на събитие</h2>
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Редактиране на събитие</title>
 
-<form asp-action="EditEventById" method="post">
-    <div class="form-group">
-        <label asp-for="Name" class="control-label">Име на събитието:</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Employee/EditEvent.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="view-container" style="margin-top:150px;">
+        <h2>Редактиране на събитие</h2>
+
+        <form asp-action="EditEventById" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Име на събитието:</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание:</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Date" class="control-label">Дата:</label>
+                <input asp-for="Date" type="date" class="form-control" value="@Model.Date.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="ApplicationUserId" value="@Model.ApplicationUserId" />
+            <input type="hidden" asp-for="Id" value="@Model.Id" />
+
+            <button type="submit" class="btn btn-primary">Запази промените</button>
+        </form>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Description" class="control-label">Описание:</label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="form-group mb-3">
-        <label asp-for="Date" class="control-label">Дата:</label>
-        <input asp-for="Date" type="date" class="form-control" value="@Model.Date.ToString("yyyy-MM-dd")" />
-        <span asp-validation-for="Date" class="text-danger"></span>
-    </div>
-
-    <input type="hidden" asp-for="ApplicationUserId" value="@Model.ApplicationUserId" />
-    <input type="hidden" asp-for="Id" value="@Model.Id" />
-
-    <button type="submit" class="btn btn-primary">Запази промените</button>
-</form>
+    <!-- Scripts section -->
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>
