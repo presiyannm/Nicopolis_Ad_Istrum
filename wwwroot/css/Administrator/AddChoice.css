@@ -26,9 +26,46 @@
     background-color: rgba(255, 255, 255, 0.9);
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 100px;
+    margin-top: 150px; /* Set margin-top as per your requirement */
+    text-align: center;
 }
 
-html {
-    min-height: 100vh;
+.title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.choice-button {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    text-align: center;
+}
+
+    .choice-button:hover {
+        background-color: #0056b3;
+    }
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+    .view-container {
+        max-width: 90%;
+    }
+
+    .choice-button {
+        font-size: 1rem;
+        padding: 12px 20px;
+    }
 }
