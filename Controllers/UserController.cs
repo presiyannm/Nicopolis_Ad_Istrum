@@ -112,38 +112,39 @@ namespace Nicopolis_Ad_Istrum.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeeAllEvents(string sortBy, string sortDirection)
+        public async Task<IActionResult> SeeAllEvents(string? sortBy, string? sortDirection)
         {
             var events = await userService.GetAllEventsAsync();
 
-            sortBy = string.IsNullOrEmpty(sortBy) ? "Name" : sortBy;
-            sortDirection = string.IsNullOrEmpty(sortDirection) ? "asc" : sortDirection;
+            ViewData["SortDirection"] = sortDirection == "asc" ? "desc" : "asc";
+
+            //sortBy = string.IsNullOrEmpty(sortBy) ? "Name" : sortBy;
+            //sortDirection = string.IsNullOrEmpty(sortDirection) ? "asc" : sortDirection;
 
             // Sort events based on the query parameters
-            switch (sortBy.ToLower())
+            if (sortBy != null && sortDirection != null)
             {
-                case "name":
-                    events = sortDirection.ToLower() == "asc"
-                        ? events.OrderBy(e => e.Name).ToList()
-                        : events.OrderByDescending(e => e.Name).ToList();
-                    break;
+                switch (sortBy.ToLower())
+                {
+                    case "name":
+                        events = sortDirection.ToLower() == "asc"
+                            ? events.OrderBy(e => e.Name).ToList()
+                            : events.OrderByDescending(e => e.Name).ToList();
+                        break;
 
-                case "date":
-                    events = sortDirection.ToLower() == "asc"
-                        ? events.OrderBy(e => e.Date).ToList()
-                        : events.OrderByDescending(e => e.Date).ToList();
-                    break;
+                    case "date":
+                        events = sortDirection.ToLower() == "asc"
+                            ? events.OrderBy(e => e.Date).ToList()
+                            : events.OrderByDescending(e => e.Date).ToList();
+                        break;
 
-                default:
-                    events = events.OrderBy(e => e.Name).ToList();
-                    break;
+                    default:
+                        events = events.OrderBy(e => e.Name).ToList();
+                        break;
+                }
             }
 
             return View(events);
         }
-
-
-
-
     }
 }

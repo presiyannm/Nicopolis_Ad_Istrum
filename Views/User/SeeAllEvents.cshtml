@@ -27,28 +27,18 @@
             <div class="sorting-buttons mb-3">
                 <a asp-action="SeeAllEvents"
                    asp-route-sortBy="Name"
-                   asp-route-sortDirection="@(ViewData["SortDirection"] as string == "asc" ? "desc" : "asc")"
+                   asp-route-sortDirection="@(ViewData["SortDirection"])"
                    class="btn btn-primary btn-sm">
 
                         <span>Сортирай по име</span>
                 </a>
 
-                <a href="@Url.Action("SeeAllEvents", new { sortBy = "Date", sortDirection = (ViewData["SortDirection"] as string == "asc" ? "desc" : "asc") })" class="btn btn-primary btn-sm">
-                    @if (ViewData["SortBy"] as string == "Date")
-                    {
-                        @if (ViewData["SortDirection"] as string == "asc")
-                        {
-                            <span>Сортирай по дата &#8593;</span>
-                        }
-                        else
-                        {
-                            <span>Сортирай по дата &#8595;</span>
-                        }
-                    }
-                    else
-                    {
+               <a asp-action="SeeAllEvents"
+                   asp-route-sortBy="Date"
+                   asp-route-sortDirection="@(ViewData["SortDirection"])"
+                   class="btn btn-primary btn-sm">
+
                         <span>Сортирай по дата</span>
-                    }
                 </a>
             </div>
 
