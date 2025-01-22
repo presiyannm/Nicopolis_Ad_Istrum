@@ -24,7 +24,7 @@
                 <input type="hidden" name="pageSize" value="@Model.PageSize">
                 <input type="hidden" name="sortBy" value="@ViewData["SortBy"]">
                 <input type="hidden" name="ascending" value="@ViewData["SortOrder"]">
-                <button type="submit" class="btn btn-primary">Търси</button>
+                <button type="submit" class="btn btn-primary cta-button">Търси</button>
             </div>
         </form>
 
@@ -85,12 +85,16 @@
         <div>
             @if (Model.HasPreviousPage)
             {
-                <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" class="btn btn-primary btn-sm">Назад</a>
+                <a href="@Url.Action("SeeAllUsers", "Administrator",
+                new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" 
+                class="btn btn-primary btn-sm cta-button">Назад</a>
             }
 
             @if (Model.HasNextPage)
             {
-                <a href="@Url.Action("SeeAllUsers", "Administrator", new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" class="btn btn-primary btn-sm">Напред</a>
+                <a href="@Url.Action("SeeAllUsers", "Administrator", 
+                new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" 
+                class="btn btn-primary btn-sm cta-button">Напред</a>
             }
         </div>
 

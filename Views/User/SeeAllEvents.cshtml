@@ -28,7 +28,7 @@
                 <a asp-action="SeeAllEvents"
                    asp-route-sortBy="Name"
                    asp-route-sortDirection="@(ViewData["SortDirection"])"
-                   class="btn btn-primary btn-sm">
+                   class="btn btn-primary btn-sm cta-button">
 
                         <span>Сортирай по име</span>
                 </a>
@@ -36,7 +36,7 @@
                <a asp-action="SeeAllEvents"
                    asp-route-sortBy="Date"
                    asp-route-sortDirection="@(ViewData["SortDirection"])"
-                   class="btn btn-primary btn-sm">
+                   class="btn btn-primary btn-sm cta-button">
 
                         <span>Сортирай по дата</span>
                 </a>
@@ -48,7 +48,7 @@
                 <div class="empty-state text-center">
                     <h3 class="text-muted mb-4">В момента няма налични събития.</h3>
                     <p class="lead text-muted">Моля, проверете по-късно или се свържете с администратора.</p>
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Отидете на началната страница</a>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary cta-button">Отидете на началната страница</a>
                 </div>
             }
             else

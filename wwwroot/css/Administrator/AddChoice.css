@@ -46,17 +46,11 @@
     padding: 15px 25px;
     font-size: 1.1rem;
     color: white;
-    background-color: #007bff;
     border: none;
     border-radius: 5px;
     text-decoration: none;
-    transition: background-color 0.3s;
     text-align: center;
 }
-
-    .choice-button:hover {
-        background-color: #0056b3;
-    }
 
 /* Add responsiveness */
 @media (max-width: 768px) {

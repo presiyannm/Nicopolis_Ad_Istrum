@@ -65,11 +65,6 @@ body {
         text-transform: uppercase; /* Make text uppercase */
     }
 
-        /* Styling for buttons when hovered */
-        .sorting-buttons .btn:hover {
-            background-color: #0056b3; /* Darker blue on hover */
-        }
-
 /* Smaller filter container */
 .filter-container {
     background-color: #ffffff; /* White background for filter section */

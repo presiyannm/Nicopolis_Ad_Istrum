@@ -20,7 +20,7 @@ html {
 body {
     box-sizing: border-box;
     background-color: dimgray;
-    padding-top:80px;
+    padding-top: 80px;
 }
 
 a {
@@ -39,12 +39,33 @@ img {
     display: inline-block;
 }
 
-
-footer {
-    height: 60px;
-    background-color: #333;
+/*.site-footer {
+    background-color: #6e6969;
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
+
+    .site-footer .container {
+        margin: 0 auto;
+        padding: 0 15px;
+    }*/
+
+.cta-button {
+    padding: 12px 30px;
+    background-color: #ff6f61;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+    border: 0px;
+}
+
+    .cta-button:hover {
+        background-color: #e63946;
+    }

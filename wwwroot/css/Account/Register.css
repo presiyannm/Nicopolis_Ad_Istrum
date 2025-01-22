@@ -36,7 +36,6 @@
 
 .register-form .form-control {
     border-radius: 5px;
-    border: 1px solid #ccc;
     padding: 10px;
     font-size: 0.9rem;
     width: 100%;
@@ -53,19 +52,3 @@
     margin-top: 5px;
     display: block;
 }
-
-/* Button Styling */
-.cta-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-    .cta-button:hover {
-        background-color: #0056b3;
-    }
