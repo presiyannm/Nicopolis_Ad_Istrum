@@ -40,14 +40,13 @@ body {
 
 /* Button Styling */
 .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #ff6f61;
+    border: 0px;
 }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
+.btn-primary:hover {
+    background-color: #e63946;
+}
 
 /* Empty State Styling */
 .empty-state {
@@ -110,25 +109,20 @@ body {
     /* Form Select Inputs */
     .filter-container select {
         border-radius: 5px;
-        padding: 10px;
         border: 1px solid #ccc;
         width: 100%;
+
         margin-top: 5px;
     }
 
     /* Filter button */
     .filter-container .btn {
         width: 100%;
-        background-color: #007bff;
         color: white;
         border: none;
         padding: 12px;
         margin-top: 15px;
     }
-
-        .filter-container .btn:hover {
-            background-color: #0056b3;
-        }
 
 /* Empty State for Exhibits */
 .empty-state {
@@ -147,11 +141,6 @@ body {
 
     /* Adjusting empty state buttons */
     .empty-state .btn {
-        background-color: #007bff;
         color: #fff;
         border: none;
     }
-
-        .empty-state .btn:hover {
-            background-color: #0056b3;
-        }

@@ -28,14 +28,14 @@
                         <div class="col-md-4">
                             <label for="CollectionId">Колекция:</label>
                             <select id="CollectionId" name="collectionId" class="form-control" asp-items="ViewBag.Collections">
-                                <option selected disabled value="Избери">Избери</option>
+                                <option selected value="Избери">Избери</option>
                             </select>
                         </div>
 
                         <div class="col-md-4">
                             <label for="EraId">Епоха:</label>
                             <select id="EraId" name="eraId" class="form-control" asp-items="ViewBag.Eras">
-                                <option selected disabled value="Избери">Избери</option>
+                                <option selected value="Избери">Избери</option>
                             </select>
                         </div>
 
@@ -48,7 +48,7 @@
                                 new SelectListItem { Text = "Епоха (възходящо)", Value = "eraAsc" },
                                 new SelectListItem { Text = "Епоха (низходящо)", Value = "eraDesc" }
                             }, "Value", "Text", ViewBag.SortOrder))">
-                                <option selected disabled value="Избери">Избери</option>
+                                <option selected value="Избери">Избери</option>
                             </select>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                                     }
                                     else if (User.IsInRole("Science Associate"))
                                     {
-                                        <a href="@Url.Action("EditExhibitById", "Associate", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
+                                        <a href="@Url.Action("EditExhibitById", "Associate", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm cta-button">Редактирай</a>
                                     }
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                         <div class="empty-state text-center p-5" style="background-color: #f1f1f1; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                             <h3 class="text-muted mb-4" style="color: #333;">Няма експонати за показване</h3>
                             <p class="lead text-muted" style="color: #666;">В момента няма налични експонати за тази колекция. Моля, проверете по-късно или се свържете с администратора.</p>
-                            <a href="@Url.Action("Index", "Home")" class="btn btn-outline-primary">Отидете на началната страница</a>
+                            <a href="@Url.Action("Index", "Home")" class="btn cta-button">Отидете на началната страница</a>
                         </div>
                     </div>
                 }

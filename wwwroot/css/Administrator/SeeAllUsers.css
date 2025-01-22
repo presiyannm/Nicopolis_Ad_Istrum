@@ -77,6 +77,13 @@ h1, h2 {
         margin-bottom: 10px; /* Adds space between rows of buttons */
     }
 
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+}
+
 /* Optional: Responsive design */
 @media (max-width: 768px) {
     .view-container .button-group .btn {

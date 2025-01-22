@@ -1,12 +1,4 @@
-﻿namespace Nicopolis_Ad_Istrum.wwwroot.css.Associate {
-    public class EditCollection
-
-{
-}
-
-}
-
-body {
+﻿body {
     background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
     background-size: cover;
     height: auto;
@@ -36,4 +28,8 @@ body {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-top: 100px;
+}
+
+.view-container .cta-button {
+    padding: 0px 0px;
 }
