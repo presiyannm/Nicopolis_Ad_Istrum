@@ -84,6 +84,12 @@ h1, h2 {
     display: block;
 }
 
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 /* Optional: Responsive design */
 @media (max-width: 768px) {
     .view-container .button-group .btn {

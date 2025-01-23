@@ -39,21 +39,12 @@ img {
     display: inline-block;
 }
 
-/*.site-footer {
-    background-color: #6e6969;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-    font-size: 14px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
 }
-
-    .site-footer .container {
-        margin: 0 auto;
-        padding: 0 15px;
-    }*/
 
 .cta-button {
     padding: 12px 30px;

@@ -40,8 +40,10 @@
                         <div class="col-md-4 mb-4">
                             <div class="card h-100 shadow-sm border-light" style="background-color: #f8f9fa;">
                                 <div class="card-body">
-                                    <h5 class="card-title text-dark">@collection.Name</h5>
-                                    <p class="card-text text-muted" style="font-size: 0.9rem;">@collection.Description</p>
+                                    <div>
+                                        <h5 class="card-title text-dark">@collection.Name</h5>
+                                        <p class="card-text text-muted" style="font-size: 0.9rem;">@collection.Description</p>
+                                    </div>
                                     <a asp-action="SeeAllExhibitsByCollectionId" asp-route-collectionId="@collection.Id" class="btn btn-primary btn-block cta-button">
                                         Виж експонатите
                                     </a>

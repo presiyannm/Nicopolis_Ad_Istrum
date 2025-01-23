@@ -37,16 +37,21 @@ body {
     .card:hover {
         transform: scale(1.05);
     }
+.card-elements {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:10px;
+}
 
-/* Button Styling */
 .btn-primary {
     background-color: #ff6f61;
     border: 0px;
 }
 
-.btn-primary:hover {
-    background-color: #e63946;
-}
+    .btn-primary:hover {
+        background-color: #e63946;
+    }
 
 /* Empty State Styling */
 .empty-state {
@@ -111,7 +116,6 @@ body {
         border-radius: 5px;
         border: 1px solid #ccc;
         width: 100%;
-
         margin-top: 5px;
     }
 

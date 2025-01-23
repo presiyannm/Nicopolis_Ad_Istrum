@@ -73,11 +73,12 @@
                                     <p><strong>Произведен от:</strong> @exhibit.ApplicationUser.FirstName @exhibit.ApplicationUser.LastName</p>
                                     <p><strong>Произведен в:</strong> @exhibit.Origin</p>
                                     <p><strong>Придобит чрез:</strong> @exhibit.Acquisition.Name</p>
-
                                     @if (User.IsInRole("Administrator"))
                                     {
-                                        <a href="@Url.Action("EditExhibitById", "Associate", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
-                                        <a href="@Url.Action("DeleteExhibitById", "Administrator", new { exhibitId = exhibit.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                                        <div>
+                                            <a href="@Url.Action("EditExhibitById", "Associate", new { exhibitId = exhibit.Id })" class="btn btn-primary btn-sm">Редактирай</a>
+                                            <a href="@Url.Action("DeleteExhibitById", "Administrator", new { exhibitId = exhibit.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                                        </div>
                                     }
                                     else if (User.IsInRole("Science Associate"))
                                     {
@@ -103,5 +104,4 @@
     </div>
 
 </body>
-
 </html>

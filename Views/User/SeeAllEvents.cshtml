@@ -30,15 +30,15 @@
                    asp-route-sortDirection="@(ViewData["SortDirection"])"
                    class="btn btn-primary btn-sm cta-button">
 
-                        <span>Сортирай по име</span>
+                    <span>Сортирай по име</span>
                 </a>
 
-               <a asp-action="SeeAllEvents"
+                <a asp-action="SeeAllEvents"
                    asp-route-sortBy="Date"
                    asp-route-sortDirection="@(ViewData["SortDirection"])"
                    class="btn btn-primary btn-sm cta-button">
 
-                        <span>Сортирай по дата</span>
+                    <span>Сортирай по дата</span>
                 </a>
             </div>
 
@@ -75,8 +75,10 @@
 
                                     @if (User.IsInRole("Administrator"))
                                     {
-                                        <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
-                                        <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                                        <div>
+                                            <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                                            <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                                        </div>
                                     }
                                     else if (User.IsInRole("Employee"))
                                     {

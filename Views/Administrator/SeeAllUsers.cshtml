@@ -74,8 +74,10 @@
                         <td>@user.Adress</td>
                         <td>@user.Position</td>
                         <td>
-                            <a href="@Url.Action("EditUserById", "Administrator", new { userId = user.Id })" class="btn btn-warning btn-sm mb-3">Промени</a>
-                            <a href="@Url.Action("DeleteUserById", "Administrator", new { userId = user.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                            <div class="action-buttons">
+                                <a href="@Url.Action("EditUserById", "Administrator", new { userId = user.Id })" class="btn btn-warning btn-sm mb-3">Промени</a>
+                                <a href="@Url.Action("DeleteUserById", "Administrator", new { userId = user.Id })" class="btn btn-danger btn-sm">Изтрий</a>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -86,15 +88,15 @@
             @if (Model.HasPreviousPage)
             {
                 <a href="@Url.Action("SeeAllUsers", "Administrator",
-                new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" 
-                class="btn btn-primary btn-sm cta-button">Назад</a>
+                new { page = Model.CurrentPage - 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })"
+                   class="btn btn-primary btn-sm cta-button">Назад</a>
             }
 
             @if (Model.HasNextPage)
             {
-                <a href="@Url.Action("SeeAllUsers", "Administrator", 
-                new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })" 
-                class="btn btn-primary btn-sm cta-button">Напред</a>
+                <a href="@Url.Action("SeeAllUsers", "Administrator",
+                new { page = Model.CurrentPage + 1, pageSize = Model.PageSize, sortBy = ViewData["SortBy"], ascending = ViewData["SortOrder"], searchTerm = ViewData["SearchTerm"] })"
+                   class="btn btn-primary btn-sm cta-button">Напред</a>
             }
         </div>
 
