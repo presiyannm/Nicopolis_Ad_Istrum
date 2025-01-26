@@ -17,7 +17,6 @@
 
         <h1>@ViewData["Title"]</h1>
 
-        <!-- Search Form -->
         <form method="get" action="@Url.Action("SeeAllUsers", "Administrator")" class="mb-3">
             <div class="input-group">
                 <input type="text" name="searchTerm" value="@ViewData["SearchTerm"]" class="form-control" placeholder="Търсене по име или фамилия">
@@ -103,11 +102,5 @@
         </div>
     </div>
 
-    <!-- Scripts section -->
-    @section Scripts {
-        @{
-            await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        }
-    }
 </body>
 </html>

@@ -6,8 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/User/SeeAllEvents.css" />
@@ -23,26 +21,24 @@
         <h2 class="text-center text-white">@ViewData["Title"]</h2>
 
         <div class="container">
-            <!-- Sorting Buttons placed above the cards -->
             <div class="sorting-buttons mb-3">
                 <a asp-action="SeeAllEvents"
                    asp-route-sortBy="Name"
                    asp-route-sortDirection="@(ViewData["SortDirection"])"
                    class="btn btn-primary btn-sm cta-button">
 
-                        <span>Сортирай по име</span>
+                    <span>Сортирай по име</span>
                 </a>
 
-               <a asp-action="SeeAllEvents"
+                <a asp-action="SeeAllEvents"
                    asp-route-sortBy="Date"
                    asp-route-sortDirection="@(ViewData["SortDirection"])"
                    class="btn btn-primary btn-sm cta-button">
 
-                        <span>Сортирай по дата</span>
+                    <span>Сортирай по дата</span>
                 </a>
             </div>
 
-            <!-- Empty State if no events are available -->
             @if (!Model.Any())
             {
                 <div class="empty-state text-center">
@@ -60,23 +56,27 @@
 
                         <div class="col-md-4 mb-4">
                             <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">@ev.Name</h5>
-                                    <p class="card-text">@ev.Description</p>
+                                <div class="card-body d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h5 class="card-title">@ev.Name</h5>
+                                        <p class="card-text">@ev.Description</p>
 
-                                    <p>
-                                        <strong>Дата:</strong>
-                                        <span class="badge @(isPastEvent ? "bg-danger" : "bg-success")">
-                                            @ev.Date.ToString("dd MMM yyyy")
-                                        </span>
-                                    </p>
+                                        <p>
+                                            <strong>Дата:</strong>
+                                            <span class="badge @(isPastEvent ? "bg-danger" : "bg-success")">
+                                                @ev.Date.ToString("dd MMM yyyy")
+                                            </span>
+                                        </p>
 
-                                    <p><strong>Автор:</strong> @ev.ApplicationUser.FirstName @ev.ApplicationUser.LastName</p>
+                                        <p><strong>Автор:</strong> @ev.ApplicationUser.FirstName @ev.ApplicationUser.LastName</p>
+                                    </div>
 
                                     @if (User.IsInRole("Administrator"))
                                     {
-                                        <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
-                                        <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                                        <div>
+                                            <a href="@Url.Action("EditEventById", "Employee", new { eventId = ev.Id })" class="btn btn-warning btn-sm">Редактирай</a>
+                                            <a href="@Url.Action("DeleteEventById", "Administrator", new { eventId = ev.Id })" class="btn btn-danger btn-sm ml-2">Изтрий</a>
+                                        </div>
                                     }
                                     else if (User.IsInRole("Employee"))
                                     {

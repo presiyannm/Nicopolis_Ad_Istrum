@@ -1,10 +1,4 @@
-﻿namespace Nicopolis_Ad_Istrum.wwwroot.css.Associate
-{
-    public class EditCollection
-    {
-    }
-}
-body {
+﻿body {
     background: url('/images/Collections/nikopolis-19.jpg') no-repeat center center;
     background-size: cover;
     height: auto;

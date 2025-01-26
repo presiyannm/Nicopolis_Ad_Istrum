@@ -118,10 +118,6 @@ namespace Nicopolis_Ad_Istrum.Controllers
 
             ViewData["SortDirection"] = sortDirection == "asc" ? "desc" : "asc";
 
-            //sortBy = string.IsNullOrEmpty(sortBy) ? "Name" : sortBy;
-            //sortDirection = string.IsNullOrEmpty(sortDirection) ? "asc" : sortDirection;
-
-            // Sort events based on the query parameters
             if (sortBy != null && sortDirection != null)
             {
                 switch (sortBy.ToLower())

@@ -11,9 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"]</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- External CSS file -->
     <link rel="stylesheet" href="~/css/User/SeeAllExhibitsByCollections.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -27,9 +25,9 @@
             @if (!Model.Any())
             {
                 <div class="empty-state text-center">
-                    <h3 class="text-muted mb-4" style="color:white;">В момента няма налични колекции.</h3>
+                    <h3 class="text-muted mb-4">В момента няма налични колекции.</h3>
                     <p class="lead text-muted">Моля, проверете по-късно или се свържете с администратора.</p>
-                    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Отидете на началната страница</a>
+                    <a asp-action="Index" asp-controller="Home" class="btn cta-button">Отидете на началната страница</a>
                 </div>
             }
             else

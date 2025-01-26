@@ -161,10 +161,20 @@ namespace Nicopolis_Ad_Istrum.Services
         {
             var collection = await dbContext.Collections.FirstOrDefaultAsync(c => c.Id == collectionId);
 
+            var collectionExhibits = await dbContext.Exhibits.Where(e => e.CollectionId == collectionId).ToListAsync();
+
             if (collection is null)
             {
                 throw new Exception("Collection cannot be null");
             }
+
+           if (collectionExhibits.Count > 0)
+           {
+                foreach(var exhibit in collectionExhibits)
+                {
+                    dbContext.Exhibits.Remove(exhibit);
+                }
+           }
 
             dbContext.Collections.Remove(collection);
 
