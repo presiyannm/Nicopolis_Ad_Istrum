@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.Identity.Client;
 using Nicopolis_Ad_Istrum.Data;
 using Nicopolis_Ad_Istrum.Models.Identity;
 using Nicopolis_Ad_Istrum.Models.ViewModels;
@@ -39,38 +40,46 @@ namespace Nicopolis_Ad_Istrum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser
+                var userExists = await _userManager.FindByEmailAsync(model.EmailAddress);
+
+                if (userExists is null)
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Email = model.EmailAddress,
-                    UserName = model.EmailAddress,
-                    Position = "User"
-                };
-
-                if (model.Password == model.ConfirmPassword)
-                { 
-                    var result = await _userManager.CreateAsync(user, model.Password);
-
-                    if (result.Succeeded)
+                    var user = new ApplicationUser
                     {
-                        await _userManager.AddToRoleAsync(user, "User");
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.EmailAddress,
+                        UserName = model.EmailAddress,
+                        Position = "User"
+                    };
 
-                        return RedirectToAction("Index", "Home");
+                    if (model.Password == model.ConfirmPassword)
+                    {
+                        var result = await _userManager.CreateAsync(user, model.Password);
+
+                        if (result.Succeeded)
+                        {
+                            await _userManager.AddToRoleAsync(user, "User");
+
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
                     }
                     else
                     {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
+                        ModelState.AddModelError(string.Empty, "Passwords do not match.");
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Passwords do not match.");
-                }
+
             }
+
+            ModelState.AddModelError(nameof(model.EmailAddress), "Потребител с този емайл вече съществува.");
 
             return View(model);
         }
