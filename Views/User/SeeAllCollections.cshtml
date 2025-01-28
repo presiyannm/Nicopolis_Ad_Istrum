@@ -113,8 +113,8 @@
                                     @if (User.IsInRole("Administrator") || User.IsInRole("Science Associate"))
                                     {
                                         <td>
-                                            <div>
-                                                <a href="@Url.Action("EditCollectionById", "Associate", new { collectionId = collection.Id })" class="btn btn-warning btn-sm mb-3">Редактирай</a>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <a href="@Url.Action("EditCollectionById", "Associate", new { collectionId = collection.Id })" class="btn btn-warning btn-sm">Редактирай</a>
                                                 @if (User.IsInRole("Administrator"))
                                                 {
                                                     <a href="@Url.Action("DeleteCollectionById", "Administrator", new { collectionId = collection.Id })" class="btn btn-danger btn-sm">Изтрий</a>
