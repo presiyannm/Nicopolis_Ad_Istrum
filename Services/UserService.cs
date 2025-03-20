@@ -44,6 +44,17 @@ namespace Nicopolis_Ad_Istrum.Services
                 .ToListAsync();
         }
 
+        public async Task<List<ApplicationUser>> GetCreatorsAsync()
+        {
+            var scienceAssociates = dbContext.ApplicationUsers
+                .Where(u => u.Position == "Science Associate");
+
+            var adminCreators = dbContext.ApplicationUsers
+                .Where(u => u.Position == "Administrator" && dbContext.Collections.Any(c => c.ApplicationUserId == u.Id));
+
+            return await scienceAssociates.Concat(adminCreators).ToListAsync();
+        }
+
         public async Task<List<Exhibit>> GetAllExhibitsByCollectionIdAsync(int collectionId)
         {
             var exhibits = await dbContext.Exhibits

@@ -57,8 +57,9 @@ namespace Nicopolis_Ad_Istrum.Controllers
                     .Select(l => new SelectListItem { Text = l.Name, Value = l.Id.ToString() }).ToList(),
                 EraOptions = (await userService.GetErasAsync())
                     .Select(e => new SelectListItem { Text = e.Name, Value = e.Id.ToString() }).ToList(),
-                AssociateOptions = (await userService.GetAssociatesAsync())
-                    .Select(a => new SelectListItem { Text = a.FirstName, Value = a.Id }).ToList()
+                AssociateOptions = (await userService.GetCreatorsAsync())
+                    .Select(a => new SelectListItem { Text = a.FirstName, Value = a.Id.ToString() }).ToList()
+
             };
 
             return View(model);

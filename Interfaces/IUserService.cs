@@ -14,5 +14,6 @@ namespace Nicopolis_Ad_Istrum.Interfaces
         Task<List<Exhibit>> GetAllExhibitsByCollectionIdAsync(int collectionId);
         Task<List<Exhibit>> GetExhibitsAsync(int collectionId, int? eraId, string sortOrder);
         Task<List<Event>> GetAllEventsAsync();
+        Task<List<ApplicationUser>> GetCreatorsAsync();
     }
 }
